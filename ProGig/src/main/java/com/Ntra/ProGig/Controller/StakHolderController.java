@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
-import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,11 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 
-public class UserController {
+public class StakHolderController {
     private final UserService userService;
     @GetMapping("/Users")
-    public ResponseEntity<List<User>> getAllUsers()
-    {   List<User> list = userService.getusers();
+    public ResponseEntity<List<StakHolder>> getAllUsers()
+    {   List<StakHolder> list = userService.getusers();
         if(list.size()<=0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -26,8 +26,8 @@ public class UserController {
         }
     }
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> findbyUserid(@PathVariable int id) {
-        User user=userService.getuserbyid(id);
+    public ResponseEntity<StakHolder> findbyUserid(@PathVariable int id) {
+        StakHolder user=userService.getuserbyid(id);
         if(user==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -36,8 +36,8 @@ public class UserController {
         }
     }
     @PutMapping("update")
-    public ResponseEntity<User> EditeUser(@RequestBody User user1){
-        User user= userService.EditeUser(user1);
+    public ResponseEntity<StakHolder> EditeUser(@RequestBody StakHolder user1){
+        StakHolder user= userService.EditeUser(user1);
          return ResponseEntity.of(Optional.of(user));
     }
     @DeleteMapping("/delet/{id}")

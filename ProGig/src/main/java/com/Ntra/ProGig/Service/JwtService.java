@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Service;
 
-import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Entity.StakHolder;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -41,7 +41,7 @@ public class JwtService {
                 .getPayload();
 
     }
-    public String generateToken(User user) {
+    public String generateToken(StakHolder user) {
         String token = Jwts
                 .builder()
                 .subject(user.getUsername())

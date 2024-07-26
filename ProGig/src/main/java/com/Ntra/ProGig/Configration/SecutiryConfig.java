@@ -28,7 +28,9 @@ public class SecutiryConfig {
                 .authorizeHttpRequests(
                         Req->Req.requestMatchers("/login/**")
                                 .permitAll()
-                                .requestMatchers("/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**")
+                                .requestMatchers(
+                                        "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
+                                        "/Skills/**","/jobs/**")
                                 .authenticated()
 
                 ).userDetailsService(userService)

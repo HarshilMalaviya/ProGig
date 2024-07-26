@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Entity.AuthenticationResponse;
-import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +17,11 @@ public class AutheController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request){
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody StakHolder request){
         return ResponseEntity.ok(authService.authenticate(request));
     }
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse>register(@RequestBody User request){
+    public ResponseEntity<AuthenticationResponse>register(@RequestBody StakHolder request) {
         return ResponseEntity.ok(authService.register(request));
     }
 }
