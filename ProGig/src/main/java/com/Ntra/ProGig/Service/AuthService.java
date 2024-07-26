@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.AuthenticationResponse;
 import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Exception.UserAlreadyExistsException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +35,11 @@ public class AuthService {
         return new AuthenticationResponse(token);
     }
 
-    public AuthenticationResponse register(User request){
+    public AuthenticationResponse register(User request)  {
+        Optional<User> existingUser = userRepo.findByUsername(request.getUsername());
+        if(existingUser.isPresent()){
+            throw new UserAlreadyExistsException("User already exists with username: " + request.getUsername());
+        }
         User user=new User();
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());

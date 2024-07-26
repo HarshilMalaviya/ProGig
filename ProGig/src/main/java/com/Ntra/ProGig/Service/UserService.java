@@ -24,7 +24,6 @@ public class UserService {
   public String deletebyid(int id){
     userRepo.deleteById(id);
     return"user deleted"+id;
-
   }
   public User EditeUser (User user){
     User exsistingUser=userRepo.findById(user.getId()).orElse(null);
