@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Service;
 
-import com.Ntra.ProGig.Entity.Freelancer;
-import com.Ntra.ProGig.Repository.FreelancerRepo;
+import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +11,21 @@ import java.util.Optional;
 @Service
 public class FreelancerService {
     @Autowired
-    private  FreelancerRepo repo;
+    private UserRepo repo;
 
-    public List<Freelancer> getAllFreelancer(){
+    public List<User> getAllFreelancer(){
         return this.repo.findAll();
     }
 
-    public Optional<Freelancer> getFreelancerByUsername(String username){
+    public Optional<User> getFreelancerByUsername(String username){
         return this.repo.findByUsername(username);
     }
 
-    public Optional<Freelancer> getFreelancerByEmail(String email){
+    public Optional<User> getFreelancerByEmail(String email){
         return this.repo.findByEmail(email);
     }
 
-    public Optional<Freelancer> getFreelancerById(Integer id){
+    public Optional<User> getFreelancerById(Integer id){
         return this.repo.findById(id);
     }
 
@@ -33,16 +33,16 @@ public class FreelancerService {
         repo.deleteById(id);
     }
 
-    public Freelancer saveUser(Freelancer freelancer) {
-        Freelancer createFreelancer = this.repo.save(freelancer);
-        createFreelancer.setId(freelancer.getId());
-        createFreelancer.setFirstName(freelancer.getFirstName());
-        createFreelancer.setLastName(freelancer.getLastName());
-        createFreelancer.setEmail(freelancer.getEmail());
-        createFreelancer.setUsername(freelancer.getUsername());
-        createFreelancer.setPassword(freelancer.getPassword());
-        createFreelancer.setDescription(freelancer.getDescription());
-        createFreelancer.setDescription(freelancer.getDescription());
-        return createFreelancer;
+    public User saveUser(User user) {
+        User createUser = this.repo.save(user);
+        createUser.setId(user.getId());
+        createUser.setFirstName(user.getFirstName());
+        createUser.setLastName(user.getLastName());
+        createUser.setEmail(user.getEmail());
+        createUser.setUsername(user.getUsername());
+        createUser.setPassword(user.getPassword());
+        createUser.setDescription(user.getDescription());
+        createUser.setDescription(user.getDescription());
+        return createUser;
     }
 }

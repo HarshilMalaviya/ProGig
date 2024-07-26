@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Entity.ApiResponse;
-import com.Ntra.ProGig.Entity.Freelancer;
+import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,22 +19,22 @@ public class FreelancerController {
     private FreelancerService service;
 
     @GetMapping("/getAllFreelancer")
-    public ResponseEntity<List<Freelancer>> getAllFreelancer(){
+    public ResponseEntity<List<User>> getAllFreelancer(){
         return ResponseEntity.ok(this.service.getAllFreelancer());
     }
 
     @GetMapping("/getFreelancerByUsername/{username}")
-    public ResponseEntity<Optional<Freelancer>> getFreelancerByUsername(@PathVariable("username") String username){
+    public ResponseEntity<Optional<User>> getFreelancerByUsername(@PathVariable("username") String username){
         return ResponseEntity.ok(this.service.getFreelancerByUsername(username));
     }
 
     @GetMapping("/getFreelancerByEmail/{email}")
-    public ResponseEntity<Optional<Freelancer>> getFreelancerByEmail(@PathVariable("email") String email){
+    public ResponseEntity<Optional<User>> getFreelancerByEmail(@PathVariable("email") String email){
         return ResponseEntity.ok(this.service.getFreelancerByEmail(email));
     }
 
     @GetMapping("/getFreelancerById/{id}")
-    public ResponseEntity<Optional<Freelancer>> getFreelancerById(@PathVariable("id") Integer id){
+    public ResponseEntity<Optional<User>> getFreelancerById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(this.service.getFreelancerById(id));
     }
 
