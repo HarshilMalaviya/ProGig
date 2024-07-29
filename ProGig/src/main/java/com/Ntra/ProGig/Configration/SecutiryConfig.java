@@ -1,7 +1,6 @@
 package com.Ntra.ProGig.Configration;
 
-import com.Ntra.ProGig.Filter.JwtAuthFilter;
-import com.Ntra.ProGig.Service.UserServiceImpl;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,30 +19,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecutiryConfig {
-    private final UserServiceImpl userService;
-    private final JwtAuthFilter jwtAuthFilter;
-    @Bean
+     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        Req->Req.requestMatchers("/login/**")
+                        Req->Req.requestMatchers("/freelancer/**")
                                 .permitAll()
-                                .requestMatchers("/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**")
-                                .authenticated()
-
-                ).userDetailsService(userService)
-                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .requestMatchers("/clients/**","/Transaction/**")
+                                .permitAll()
+                )
                 .build();
 
     }
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 
 }
