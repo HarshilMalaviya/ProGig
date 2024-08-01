@@ -2,39 +2,24 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Repository.UserRepo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-@RequiredArgsConstructor
 public class UserService {
-  @Autowired
-    private final UserRepo userRepo;
-  public List<User> getusers()
-  {
-    return userRepo.findAll();
-  }
-  public User getuserbyid(int id)
-  {
-    return userRepo.findById(id).orElse(null);
-  }
-  public String deletebyid(int id){
-    userRepo.deleteById(id);
-    return"user deleted"+id;
+    @Autowired
+    private UserRepo repo;
 
-  }
-  public User EditeUser (User user){
-    User exsistingUser=userRepo.findById(user.getId()).orElse(null);
-    exsistingUser.setLastname(user.getLastname());
-    exsistingUser.setFirstname(user.getFirstname());
-    exsistingUser.setUsername(user.getUsername());
-    exsistingUser.setEmail(user.getEmail());
-    exsistingUser.setRole(user.getRole());
-    exsistingUser.setContact(user.getContact());
-    return userRepo.save(exsistingUser);
-  }
-
+    public User saveUser(User user) {
+        User createUser = this.repo.save(user);
+        createUser.setId(user.getId());
+        createUser.setFirstName(user.getFirstName());
+        createUser.setLastName(user.getLastName());
+        createUser.setEmail(user.getEmail());
+        createUser.setUsername(user.getUsername());
+        createUser.setPassword(user.getPassword());
+        createUser.setDescription(user.getDescription());
+        createUser.setDescription(user.getDescription());
+        return createUser;
+    }
 }
