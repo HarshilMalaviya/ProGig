@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Entity.StakHolder;
-import com.Ntra.ProGig.Service.UserService;
+import com.Ntra.ProGig.Service.StakHolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 
 public class StakHolderController {
-    private final UserService userService;
+    private final StakHolderService userService;
     @GetMapping("/Users")
     public ResponseEntity<List<StakHolder>> getAllUsers()
     {   List<StakHolder> list = userService.getusers();

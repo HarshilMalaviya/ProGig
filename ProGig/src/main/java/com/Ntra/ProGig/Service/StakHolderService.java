@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class StakHolderService {
   @Autowired
     private final StakHolderRepo userRepo;
   public List<StakHolder> getusers()
