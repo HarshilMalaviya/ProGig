@@ -30,7 +30,7 @@ public class SecutiryConfig {
                                 .permitAll()
                                 .requestMatchers(
                                         "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-                                        "/Skills/**","/jobs/**")
+                                        "/Skills/**","/jobs/**","/freelancer/**")
                                 .authenticated()
 
                 ).userDetailsService(userService)
