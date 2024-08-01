@@ -26,11 +26,11 @@ public class SecutiryConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        Req->Req.requestMatchers("/login/**")
+                        Req->Req.requestMatchers("/login/**","/jobs/**")
                                 .permitAll()
                                 .requestMatchers(
                                         "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-                                        "/Skills/**","/jobs/**")
+                                        "/Skills/**")
                                 .authenticated()
 
                 ).userDetailsService(userService)

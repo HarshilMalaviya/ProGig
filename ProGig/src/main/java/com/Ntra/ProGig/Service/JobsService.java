@@ -2,15 +2,18 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Repository.JobRepo;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class JobsService {
+//    private final SkillRepo skillRepo;
+
     @Autowired
     private final JobRepo jobRepo;
     public Jobs saveJobs (Jobs jobs)
@@ -26,6 +29,9 @@ public class JobsService {
 
     public List<Jobs> getJobByskillRequired(String skills){
         return  jobRepo.findBySkillsRequired(skills);
+    }
+    public List<Jobs> getJobByskilslRequired(List<String> skills){
+        return  jobRepo.findBySkillsRequiredIn(skills);
     }
     public void deletebyid(int id) {
         jobRepo.deleteById((long) id);

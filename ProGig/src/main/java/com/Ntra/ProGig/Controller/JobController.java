@@ -49,6 +49,16 @@ public class JobController {
             return ResponseEntity.of(Optional.of(jobs));
         }
     }
+    @GetMapping("/job/skills")
+    public ResponseEntity<List<Jobs>> findJobBySkills(@RequestParam(value = "skill") List<String> skill) {
+        List<Jobs> jobs=jobsService.getJobByskilslRequired(skill);
+        if(jobs==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+            return ResponseEntity.of(Optional.of(jobs));
+        }
+    }
 
 
     @PutMapping("/updateJob")

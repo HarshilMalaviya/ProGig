@@ -14,7 +14,6 @@ public class Jobs {
     private int id;
     private String title;
     private String description;
-
     @ElementCollection
     private List<String> skillsRequired;
     private String duration;
