@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Entity;
 
-public enum Role {
+public enum UserRole {
         FREELANCER,
         CLIENT
 

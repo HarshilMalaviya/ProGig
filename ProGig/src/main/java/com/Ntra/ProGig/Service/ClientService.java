@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Service;
 
-import com.Ntra.ProGig.Entity.Role;
+import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +15,19 @@ public class ClientService {
     private UserRepo repo;
 
     public List<User> getAllClients(){
-        return this.repo.findAllByRole(Role.CLIENT);
+        return this.repo.findAllByRole(UserRole.CLIENT);
     }
 
     public Optional<User> getClientByUsername(String username){
-        return this.repo.findByUsernameAndRole(username, Role.CLIENT);
+        return this.repo.findByUsernameAndRole(username, UserRole.CLIENT);
     }
 
     public Optional<User> getClientByEmail(String email){
-        return this.repo.findByEmailAndRole(email, Role.CLIENT);
+        return this.repo.findByEmailAndRole(email, UserRole.CLIENT);
     }
 
     public Optional<User> getClientById(Integer id){
-        return this.repo.findByIdAndRole(id, Role.CLIENT);
+        return this.repo.findByIdAndRole(id, UserRole.CLIENT);
     }
 
     public void deleteClient(Integer id){

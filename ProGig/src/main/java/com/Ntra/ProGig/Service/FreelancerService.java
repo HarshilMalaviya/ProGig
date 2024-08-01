@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Service;
 
-import com.Ntra.ProGig.Entity.Role;
+import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static com.Ntra.ProGig.Entity.Role.FREELANCER;
 
 @Service
 public class FreelancerService {
@@ -18,20 +15,20 @@ public class FreelancerService {
     private UserRepo repo;
 
     public List<User> getAllFreelancer(){
-        return this.repo.findAllByRole(Role.FREELANCER);
+        return this.repo.findAllByRole(UserRole.FREELANCER);
     }
 
 
     public Optional<User> getFreelancerByUsername(String username){
-        return this.repo.findByUsernameAndRole(username,Role.FREELANCER);
+        return this.repo.findByUsernameAndRole(username, UserRole.FREELANCER);
     }
 
     public Optional<User> getFreelancerByEmail(String email){
-        return this.repo.findByEmailAndRole(email,Role.FREELANCER);
+        return this.repo.findByEmailAndRole(email, UserRole.FREELANCER);
     }
 
     public Optional<User> getFreelancerById(Integer id){
-        return this.repo.findByIdAndRole(id,Role.FREELANCER);
+        return this.repo.findByIdAndRole(id, UserRole.FREELANCER);
     }
 
     public void deleteFreelancer(Integer id){
