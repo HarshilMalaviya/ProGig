@@ -37,5 +37,24 @@ public class FreelancerService {
         repo.deleteById(id);
     }
 
+    public User acceptFreelancer(Integer id){
+        Optional<User> freelancer= this.repo.findById(id);
+        if (freelancer.isPresent()){
+            User user = freelancer.get();
+            user.setStatus("ACCEPTED");
+            return this.repo.save(user);
+        }
+        return null;
+    }
 
+    public User rejectFreelancer(Integer id,String description){
+        Optional<User> freelancer= this.repo.findById(id);
+        if (freelancer.isPresent()){
+            User user= freelancer.get();
+            user.setStatus("REJECTED");
+            user.setWhyRejected(description);
+            return this.repo.save(user);
+        }
+        return null;
+    }
 }

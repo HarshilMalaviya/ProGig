@@ -33,5 +33,26 @@ public class ClientService {
     public void deleteClient(Integer id){
         repo.deleteById(id);
     }
+
+    public User acceptClient(Integer id){
+        Optional<User> client= this.repo.findById(id);
+        if (client.isPresent()){
+            User user = client.get();
+            user.setStatus("ACCEPTED");
+            return this.repo.save(user);
+        }
+        return null;
+    }
+
+    public User rejectClient(Integer id,String description){
+        Optional<User> client= this.repo.findById(id);
+        if (client.isPresent()){
+            User user= client.get();
+            user.setStatus("REJECTED");
+            user.setWhyRejected(description);
+            return this.repo.save(user);
+        }
+        return null;
+    }
 }
 

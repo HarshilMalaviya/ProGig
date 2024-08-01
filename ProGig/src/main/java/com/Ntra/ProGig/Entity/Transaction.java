@@ -16,21 +16,21 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    public Integer id;
+    private Integer id;
 
-    public String clientName;
+    private String clientName;
 
-    public String freelancerName;
+    private String freelancerName;
 
-    public String paymentAmount;
+    private String paymentAmount;
 
-    public Long transactionId;
+    private Long transactionId;
 
-    public String contract;
+    private String contract;
 
-    public Date transactionDate;
+    private Date transactionDate;
 
-    public String jobTitle;
+    private String jobTitle;
 
-    public String jobDescription;
+    private String jobDescription;
 }

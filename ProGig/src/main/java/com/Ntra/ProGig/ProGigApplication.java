@@ -25,12 +25,12 @@ public class ProGigApplication {
 						"dhyey","baldha",
 						"dhyeybaldha@gmail.com","dhyeybaldha",
 						"1234", List.of("'python','java','c'"),
-						"i am willing to work in backend field", Role.FREELANCER));
+						"i am willing to work in backend field", Role.FREELANCER,null,null));
 			Service.saveUser(new User(null,
 					"harshil","malaviya",
 					"harshilmalaviya@gmail.com","harshilmalaviya",
 					"1234", List.of("'python','java','c'"),
-					"I hope i would get genuine freelancer", Role.CLIENT));};
+					"I hope i would get genuine freelancer", Role.CLIENT,null,null));};
 	}
 
 }
