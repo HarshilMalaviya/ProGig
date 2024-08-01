@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.Ntra.ProGig.Entity.Role.FREELANCER;
 
@@ -57,4 +58,5 @@ public class FreelancerService {
         }
         return null;
     }
+
 }

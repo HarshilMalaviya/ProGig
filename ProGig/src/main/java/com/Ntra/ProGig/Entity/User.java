@@ -33,7 +33,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    private List<String> skill;
+    private List<String> skills;
 
     private String description;
     @Enumerated(value = EnumType.STRING)

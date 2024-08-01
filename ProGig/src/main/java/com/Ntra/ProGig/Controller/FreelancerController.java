@@ -4,10 +4,13 @@ import com.Ntra.ProGig.Entity.ApiResponse;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.element.Name;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +59,8 @@ public class FreelancerController {
         User rejectedFreelancer = service.rejectFreelancer(id, description);
         return rejectedFreelancer != null ? ResponseEntity.ok(rejectedFreelancer) : ResponseEntity.notFound().build();
     }
+
+
+
 
 }
