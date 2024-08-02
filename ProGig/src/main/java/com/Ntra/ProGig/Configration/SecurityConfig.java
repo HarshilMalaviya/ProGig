@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         Req->Req.requestMatchers("/freelancer/**")
                                 .permitAll()
-                                .requestMatchers("/clients/**","/Transaction/**","/proposals/**")
+                                .requestMatchers("/clients/**","/Transaction/**","/proposals/**","/contract/**")
                                 .permitAll()
                 )
                 .build();
