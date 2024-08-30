@@ -15,22 +15,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.Arrays;
 
 @Configuration
+@EnableWebMvc
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecutiryConfig {
     private final UserServiceImpl userService;
     private final JwtAuthFilter jwtAuthFilter;
+    private static final String[] Public_URL= {
+            "/login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**","/api-docs/**"
+    };
+    private static final String[] Private_URL={
+            "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
+            "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**"
+    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        Req->Req.requestMatchers("/login/**")
+                        Req->Req.requestMatchers(Public_URL)
                                 .permitAll()
-                                .requestMatchers(
-                                        "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-                                        "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**")
+                                .requestMatchers(Private_URL)
                                 .authenticated()
 
                 ).userDetailsService(userService)
