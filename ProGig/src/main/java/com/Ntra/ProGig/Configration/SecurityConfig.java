@@ -17,13 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.Arrays;
-
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecutiryConfig {
+public class SecurityConfig {
     private final UserServiceImpl userService;
     private final JwtAuthFilter jwtAuthFilter;
     private static final String[] Public_URL= {

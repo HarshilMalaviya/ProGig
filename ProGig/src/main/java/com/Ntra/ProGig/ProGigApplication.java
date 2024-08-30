@@ -17,6 +17,4 @@ public class ProGigApplication {
 		SpringApplication.run(ProGigApplication.class, args);
 	}
 
-
-
 }
