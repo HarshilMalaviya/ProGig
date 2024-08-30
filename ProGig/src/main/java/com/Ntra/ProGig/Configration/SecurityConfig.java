@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecutiryConfig {
+public class SecurityConfig {
     private final UserServiceImpl userService;
     private final JwtAuthFilter jwtAuthFilter;
     @Bean
@@ -30,7 +30,7 @@ public class SecutiryConfig {
                                 .permitAll()
                                 .requestMatchers(
                                         "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-                                        "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**")
+                                        "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/contract/**","/proposals/**")
                                 .authenticated()
 
                 ).userDetailsService(userService)
