@@ -26,14 +26,15 @@ public class StakHolderController {
         }
     }
     @GetMapping("/users/{id}")
-    public ResponseEntity<StakHolder> findbyUserid(@PathVariable int id) {
+    public StakHolder findbyUserid(@PathVariable int id) {
         StakHolder user=userService.getuserbyid(id);
-        if(user==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else {
-            return ResponseEntity.of(Optional.of(user));
-        }
+//        if(user==null){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//        else {
+//            return ResponseEntity.of(Optional.of(user));
+//        }
+        return user;
     }
     @PutMapping("update")
     public ResponseEntity<StakHolder> EditeUser(@RequestBody StakHolder user1){
