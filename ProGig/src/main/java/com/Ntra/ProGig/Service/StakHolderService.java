@@ -3,6 +3,7 @@ package com.Ntra.ProGig.Service;
 import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StakHolderService {
+
   @Autowired
     private final StakHolderRepo userRepo;
   public List<StakHolder> getusers()
