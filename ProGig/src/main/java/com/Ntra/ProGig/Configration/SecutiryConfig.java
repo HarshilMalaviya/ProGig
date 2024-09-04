@@ -28,6 +28,7 @@ public class SecutiryConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private static final String[] Public_URL= {
             "/login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
+
             "/swagger-ui/**",
             "/webjars/**","/api-docs/**"
     };

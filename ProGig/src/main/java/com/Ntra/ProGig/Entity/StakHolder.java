@@ -1,6 +1,7 @@
 package com.Ntra.ProGig.Entity;
 
 
+import com.Ntra.ProGig.Dto.LoginDTO;
 import jakarta.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -16,7 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "StakHolder")
-public class StakHolder implements UserDetails {
+public class StakHolder extends LoginDTO implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
