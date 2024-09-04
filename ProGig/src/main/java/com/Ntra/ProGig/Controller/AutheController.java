@@ -1,5 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.LoginDTO;
+import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.AuthenticationResponse;
 import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.AuthService;
@@ -16,12 +18,12 @@ public class AutheController {
 
     private final AuthService authService;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody StakHolder request){
+    @PostMapping("/Login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginDTO request){
         return ResponseEntity.ok(authService.authenticate(request));
     }
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse>register(@RequestBody StakHolder request) {
+    public ResponseEntity<AuthenticationResponse>register(@RequestBody StackHolderDTO request) {
         return ResponseEntity.ok(authService.register(request));
     }
 }
