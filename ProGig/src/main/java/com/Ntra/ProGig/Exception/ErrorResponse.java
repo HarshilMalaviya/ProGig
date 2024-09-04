@@ -1,10 +1,13 @@
 package com.Ntra.ProGig.Exception;
 
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+@Data
 public class ErrorResponse {
     private String message;
-    private int status;
+    private HttpStatus status;
 
-    public ErrorResponse(String message, int status) {
+    public ErrorResponse(String message, HttpStatus status) {
         this.message = message;
         this.status = status;
     }

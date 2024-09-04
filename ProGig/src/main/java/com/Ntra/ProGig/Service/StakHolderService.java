@@ -1,12 +1,11 @@
 package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.StakHolder;
-import com.Ntra.ProGig.Exception.ApiRequestException;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +18,16 @@ public class StakHolderService {
     private final StakHolderRepo userRepo;
   public List<StakHolder> getusers()
   {
-    return userRepo.findAll();
+    try {
+      return userRepo.findAll();
+    }catch (UsernameNotFoundException e){
+      throw new UsernameNotFoundException("There is no StackHolder");
+    }
+
   }
   public StakHolder getuserbyid(int id)
   {
-    return userRepo.findById(id).orElseThrow(()->new ApiRequestException("user is not there"));
+    return userRepo.findById(id).orElseThrow(()->new UserNotFoundException("THERE IS NO USER ID :"+id));
   }
   public String deletebyid(int id){
     userRepo.deleteById(id);

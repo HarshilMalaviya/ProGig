@@ -16,14 +16,15 @@ import java.util.Optional;
 public class StakHolderController {
     private final StakHolderService userService;
     @GetMapping("/Users")
-    public ResponseEntity<List<StakHolder>> getAllUsers()
+    public List<StakHolder> getAllUsers()
     {   List<StakHolder> list = userService.getusers();
-        if(list.size()<=0){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else{
-         return ResponseEntity.of(Optional.of(list));
-        }
+//        if(list.size()<=0){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//        else{
+//         return ResponseEntity.of(Optional.of(list));
+//        }
+        return list;
     }
     @GetMapping("/users/{id}")
     public StakHolder findbyUserid(@PathVariable int id) {

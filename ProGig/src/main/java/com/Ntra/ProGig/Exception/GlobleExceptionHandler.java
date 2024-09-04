@@ -4,21 +4,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @ControllerAdvice
-public class GlobleExceptionHandler {
+@RestControllerAdvice
+public class GlobleExceptionHandler  {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(ApiRequestException.class)
-    public ResponseEntity<ApiException> handleAPIRequestException(ApiRequestException e){
-        ApiException apiException=new ApiException(e.getMessage(),HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(apiException,HttpStatus.NOT_FOUND);
-  }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleAPIRequestException( UserNotFoundException e){
+        return new ResponseEntity<>(new ErrorResponse(e.getMessage(),HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(OkStatus.class)
+    public ResponseEntity<ErrorResponse> handleAPIRequestException(OkStatus e){
+        ErrorResponse errorResponse=new ErrorResponse(e.getMessage(),HttpStatus.OK);
+        return new ResponseEntity<>(errorResponse,HttpStatus.OK);
+    }
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<ErrorResponse> handleAPIRequestException(NoContentException e){
+        ErrorResponse errorResponse=new ErrorResponse(e.getMessage(),HttpStatus.OK);
+        return new ResponseEntity<>(errorResponse,HttpStatus.NO_CONTENT);
+    }
+
 
 
 }
