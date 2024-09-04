@@ -24,8 +24,6 @@ public class Transaction {
 
     private String paymentAmount;
 
-    private Long transactionId;
-
     private String contract;
 
     private Date transactionDate;
@@ -33,4 +31,5 @@ public class Transaction {
     private String jobTitle;
 
     private String jobDescription;
+
 }

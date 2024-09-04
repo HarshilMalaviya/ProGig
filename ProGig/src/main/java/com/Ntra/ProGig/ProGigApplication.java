@@ -13,6 +13,10 @@ import java.util.List;
 
 @SpringBootApplication
 public class ProGigApplication {
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 
 	@Bean
 	public ModelMapper modelMapper(){
@@ -21,7 +25,5 @@ public class ProGigApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProGigApplication.class, args);
 	}
-
-
 
 }
