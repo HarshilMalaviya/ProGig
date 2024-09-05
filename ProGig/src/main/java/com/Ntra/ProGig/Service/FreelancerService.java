@@ -2,11 +2,10 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Params.UserDto;
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,21 +28,21 @@ public class FreelancerService {
     }
 
 
-    public List<UserDto> getFreelancerByUsername(String username){
-        Optional<User> users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerByUsername(String username){
+        User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
-    public List<UserDto> getFreelancerByEmail(String email){
-        Optional<User> users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerByEmail(String email){
+        User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
-    public List<UserDto> getFreelancerById(Integer id){
-        Optional<User> users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerById(Integer id){
+        User users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 

@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +18,22 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping("/getAllClients")
-    public List<User> getAllClients() {
-        return clientService.getAllClients();
+    public ResponseEntity<List<UserDto>> getAllClients() {
+        return ResponseEntity.ok(this.clientService.getAllClients());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getClientById(@PathVariable Integer id) {
-        Optional<User> client = clientService.getClientById(id);
-        return client.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserDto> getClientById(@PathVariable Integer id) {
+        return ResponseEntity.ok(this.clientService.getClientById(id));
     }
-
     @GetMapping("/username/{username}")
-    public ResponseEntity<User> getClientByUsername(@PathVariable String username) {
-        Optional<User> client = clientService.getClientByUsername(username);
-        return client.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public UserDto getClientByUsername(@PathVariable String username) {
+        return this.clientService.getClientByUsername(username);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getClientByEmail(@PathVariable String email) {
-        Optional<User> client = clientService.getClientByEmail(email);
-        return client.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserDto> getClientByEmail(@PathVariable("email") String email){
+        return ResponseEntity.ok(this.clientService.getClientByEmail(email));
     }
 
     @DeleteMapping("/{id}")
@@ -44,6 +41,8 @@ public class ClientController {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
+
+
 
     @PostMapping("/{id}/accept")
     public ResponseEntity<User> acceptClient(@PathVariable Integer id) {

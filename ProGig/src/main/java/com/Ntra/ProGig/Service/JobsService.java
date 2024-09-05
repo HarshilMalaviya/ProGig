@@ -1,9 +1,14 @@
 package com.Ntra.ProGig.Service;
 
+import com.Ntra.ProGig.Dto.InvoiceDto;
+import com.Ntra.ProGig.Dto.JobDto;
+import com.Ntra.ProGig.Entity.Invoice;
 import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Repository.JobRepo;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,10 @@ public class JobsService {
 
     @Autowired
     private final JobRepo jobRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     public Jobs saveJobs (Jobs jobs)
     {
         return jobRepo.save(jobs);
@@ -50,5 +59,20 @@ public class JobsService {
 
         return jobRepo.save(exsistingJob);
     }
+
+    private JobDto jobToDto(Jobs jobs){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        JobDto jobDto = new JobDto();
+        jobDto = new ModelMapper().map(jobs, JobDto.class);
+        return jobDto;
+    }
+
+    private Jobs DtoToJob(JobDto jobDto){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        Jobs jobs = new Jobs();
+        jobs = new ModelMapper().map(jobDto, Jobs.class);
+        return jobs;
+    }
+
 
 }

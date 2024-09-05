@@ -1,33 +1,60 @@
 package com.Ntra.ProGig.Service;
 
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Exception.ApiRequestException;
 import com.Ntra.ProGig.Repository.UserRepo;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
     @Autowired
     private UserRepo repo;
 
-    public List<User> getAllClients(){
-        return this.repo.findAllByRole(UserRole.CLIENT);
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public List<UserDto> getAllClients(){
+        try {
+            List<User> users =this.repo.findAllByRole(UserRole.CLIENT);
+            List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+            return userDtos;
+        }
+        catch (ApiRequestException e){
+            throw  new ApiRequestException("User is not available");
+        }
+
     }
 
-    public Optional<User> getClientByUsername(String username){
-        return this.repo.findByUsernameAndRole(username, UserRole.CLIENT);
+    public UserDto getClientByUsername(String username){
+        try {
+            User users = this.repo.findByUsernameAndRole(username, UserRole.CLIENT);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        }
+        catch (ApiRequestException ex){
+            throw new ApiRequestException("User Not There");
+        }
     }
 
-    public Optional<User> getClientByEmail(String email){
-        return this.repo.findByEmailAndRole(email, UserRole.CLIENT);
+    public UserDto getClientByEmail(String email){
+        User users =this.repo.findByEmailAndRole(email,UserRole.CLIENT);
+        UserDto userDtos = this.UserToDto(users);
+        return userDtos;
     }
 
-    public Optional<User> getClientById(Integer id){
-        return this.repo.findByIdAndRole(id, UserRole.CLIENT);
+    public UserDto getClientById(Integer id){
+        User users =this.repo.findByIdAndRole(id,UserRole.CLIENT);
+        UserDto userDtos = this.UserToDto(users);
+        return userDtos;
     }
 
     public void deleteClient(Integer id){
@@ -38,21 +65,37 @@ public class ClientService {
         Optional<User> client= this.repo.findById(id);
         if (client.isPresent()){
             User user = client.get();
-            user.setStatus("ACCEPTED");
-            return this.repo.save(user);
+            UserDto userDto = this.UserToDto(user);
+            userDto.setStatus("ACCEPTED");
+            return this.DtoToUser(userDto);
         }
         return null;
     }
 
     public User rejectClient(Integer id,String description){
-        Optional<User> client= this.repo.findById(id);
+        Optional<User> client = this.repo.findById(id);
         if (client.isPresent()){
-            User user= client.get();
-            user.setStatus("REJECTED");
-            user.setWhyRejected(description);
-            return this.repo.save(user);
+            User user = client.get();
+            UserDto userDto = this.UserToDto(user);
+            userDto.setStatus("REJECTED");
+            userDto.setWhyRejected(description);
+            return this.DtoToUser(userDto);
         }
         return null;
+    }
+
+    private UserDto UserToDto(User user){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        UserDto userDto = new UserDto();
+        userDto = new ModelMapper().map(user,UserDto.class);
+        return userDto;
+    }
+
+    private User DtoToUser(UserDto userDto){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        User user = new User();
+        user = new ModelMapper().map(userDto,User.class);
+        return user;
     }
 }
 

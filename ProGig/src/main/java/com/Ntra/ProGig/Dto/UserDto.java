@@ -1,4 +1,4 @@
-package com.Ntra.ProGig.Params;
+package com.Ntra.ProGig.Dto;
 
 import com.Ntra.ProGig.Entity.UserRole;
 import jakarta.persistence.EnumType;

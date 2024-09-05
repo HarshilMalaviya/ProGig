@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.InvoiceDto;
 import com.Ntra.ProGig.Entity.Invoice;
 import com.Ntra.ProGig.Service.InvoiceService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class InvoiceController {
         return   invoiceService.saveInvoice(invoice);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Invoice>> getAllInvoice()
-    {   List<Invoice> list = invoiceService.getAllInvoice();
-        if(list.size()<=0){
+    public ResponseEntity<List<InvoiceDto>> getAllInvoice()
+    {   List<InvoiceDto> list = invoiceService.getAllInvoice();
+        if(list.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         else{
@@ -32,9 +33,9 @@ public class InvoiceController {
         }
     }
     @GetMapping("/InvoiceById/{id}")
-    public ResponseEntity<Optional<Invoice>> findbyJInvoiceBYId(@PathVariable int id) {
-        Optional<Invoice> invoice=invoiceService.getById(id);
-        if(invoice==null){
+    public ResponseEntity<List<InvoiceDto>> findByJInvoiceBYId(@PathVariable int id) {
+        List<InvoiceDto> invoice=invoiceService.getById(id);
+        if(invoice.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         else {

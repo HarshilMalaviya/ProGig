@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 public class GlobleExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 

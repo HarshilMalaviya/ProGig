@@ -2,7 +2,7 @@ package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Entity.ApiResponse;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Params.UserDto;
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,17 +24,17 @@ public class FreelancerController {
     }
 
     @GetMapping("/getFreelancerByUsername/{username}")
-    public ResponseEntity<List<UserDto>> getFreelancerByUsername(@PathVariable("username") String username){
+    public ResponseEntity<UserDto> getFreelancerByUsername(@PathVariable("username") String username){
         return ResponseEntity.ok(this.service.getFreelancerByUsername(username));
     }
 
     @GetMapping("/getFreelancerByEmail/{email}")
-    public ResponseEntity<List<UserDto>> getFreelancerByEmail(@PathVariable("email") String email){
+    public ResponseEntity<UserDto> getFreelancerByEmail(@PathVariable("email") String email){
         return ResponseEntity.ok(this.service.getFreelancerByEmail(email));
     }
 
     @GetMapping("/getFreelancerById/{id}")
-    public ResponseEntity<List<UserDto>> getFreelancerById(@PathVariable("id") Integer id){
+    public ResponseEntity<UserDto> getFreelancerById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(this.service.getFreelancerById(id));
     }
 
