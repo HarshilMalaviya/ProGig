@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.ContractDto;
 import com.Ntra.ProGig.Entity.Contract;
 import com.Ntra.ProGig.Service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ContractController {
     private ContractService service;
 
     @GetMapping("/")
-    public ResponseEntity<List<Contract>> getAllContracts(){
+    public ResponseEntity<List<ContractDto>> getAllContracts(){
         return ResponseEntity.ok(this.service.getAllContract());
     }
 }

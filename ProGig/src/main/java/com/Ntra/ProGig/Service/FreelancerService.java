@@ -28,21 +28,21 @@ public class FreelancerService {
     }
 
 
-    public List<UserDto> getFreelancerByUsername(String username){
-        Optional<User> users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerByUsername(String username){
+        User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
-    public List<UserDto> getFreelancerByEmail(String email){
-        Optional<User> users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerByEmail(String email){
+        User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
-    public List<UserDto> getFreelancerById(Integer id){
-        Optional<User> users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+    public UserDto getFreelancerById(Integer id){
+        User users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
+        UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
