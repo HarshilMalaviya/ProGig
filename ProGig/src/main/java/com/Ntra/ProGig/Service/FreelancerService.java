@@ -2,11 +2,10 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Params.UserDto;
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

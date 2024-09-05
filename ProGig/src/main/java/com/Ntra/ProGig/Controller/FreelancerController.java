@@ -2,7 +2,7 @@ package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Entity.ApiResponse;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Params.UserDto;
+import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

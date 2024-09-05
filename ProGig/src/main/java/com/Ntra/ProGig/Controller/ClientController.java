@@ -22,9 +22,9 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getClientById(@PathVariable Integer id) {
+    public Optional<User> getClientById(@PathVariable Integer id) {
         Optional<User> client = clientService.getClientById(id);
-        return client.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return client;
     }
 
     @GetMapping("/username/{username}")

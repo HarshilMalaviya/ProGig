@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,12 @@ public class ClientService {
     private UserRepo repo;
 
     public List<User> getAllClients(){
-        return this.repo.findAllByRole(UserRole.CLIENT);
+        try {
+            return this.repo.findAllByRole(UserRole.CLIENT);
+        }
+        catch (NoContentException e){
+            throw new NoContentException("There is no such Content");
+        }
     }
 
     public Optional<User> getClientByUsername(String username){
