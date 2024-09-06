@@ -45,16 +45,15 @@ public class AuthService {
         if(existingUser.isPresent()){
             throw new UserAlreadyExistsException("StakHolder already exists with username: " + request.getUsername());
         }
-        StakHolder user=new StakHolder();
-        user.setFirstname(request.getFirstname());
-        user.setLastname(request.getLastname());
-        user.setUsername(request.getUsername());
-        user.setContact(request.getContact());
-        user.setEmail(request.getEmail());
-        user.setRole(request.getRole());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user = userRepo.save(user);
-        String token = jwtService.generateToken(user);
+        StackHolderDTO stackHolderDTO=new StackHolderDTO();
+        stackHolderDTO.setFirstname(request.getFirstname());
+        stackHolderDTO.setLastname(request.getLastname());
+        stackHolderDTO.setUsername(request.getUsername());
+        stackHolderDTO.setContact(request.getContact());
+        stackHolderDTO.setEmail(request.getEmail());
+        stackHolderDTO.setRole(request.getRole());
+        stackHolderDTO.setPassword(passwordEncoder.encode(request.getPassword()));
+        String token = jwtService.generateToken(this.StackDTOtoEntity(stackHolderDTO));
         return new AuthenticationResponse(token);
     }
 

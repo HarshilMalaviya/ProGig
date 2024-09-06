@@ -3,11 +3,13 @@ package com.Ntra.ProGig.Service;
 import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Exception.ApiRequestException;
+import com.Ntra.ProGig.Exception.NoContentException;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +30,8 @@ public class ClientService {
             List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
             return userDtos;
         }
-        catch (ApiRequestException e){
-            throw  new ApiRequestException("User is not available");
+        catch (NoContentException e){
+            throw  new NoContentException("User is not available");
         }
 
     }
@@ -40,8 +42,8 @@ public class ClientService {
             UserDto userDtos = this.UserToDto(users);
             return userDtos;
         }
-        catch (ApiRequestException ex){
-            throw new ApiRequestException("User Not There");
+        catch (UserNotFoundException ex){
+            throw new UserNotFoundException("User Not There");
         }
     }
 
