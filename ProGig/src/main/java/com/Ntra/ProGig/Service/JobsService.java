@@ -1,8 +1,6 @@
 package com.Ntra.ProGig.Service;
 
-import com.Ntra.ProGig.Dto.InvoiceDto;
 import com.Ntra.ProGig.Dto.JobDto;
-import com.Ntra.ProGig.Entity.Invoice;
 import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Repository.JobRepo;
 
@@ -27,40 +25,59 @@ public class JobsService {
 
     public Jobs saveJobs (Jobs jobs)
     {
-        return jobRepo.save(jobs);
-    }
-    public List<Jobs> getAllJobs (){
-        return jobRepo.findAll();
-    }
-    public Jobs getJobBYID(int id){
-        return jobRepo.findById(id).orElse(null);
+        JobDto jobDto = this.JobToDto(jobs);
+        return this.DtoToJob(jobDto);
     }
 
-    public List<Jobs> getJobByskillRequired(String skills){
-        return  jobRepo.findBySkillsRequired(skills);
+
+    public List<JobDto> getAllJobs (){
+        List<Jobs> jobs = jobRepo.findAll();
+        return jobs.stream().map(this::JobToDto).toList();
     }
-    public List<Jobs> getJobByskilslRequired(List<String> skills){
-        return  jobRepo.findBySkillsRequiredIn(skills);
+
+
+    public JobDto getJobBYID(int id){
+
+        Jobs jobs =this.jobRepo.findById(id);
+        return this.JobToDto(jobs);
     }
+
+
+    public List<JobDto> getJobByskillRequired(String skills){
+        List<Jobs> jobs = this.jobRepo.findBySkillsRequired(skills);
+        return jobs.stream().map(this::JobToDto).toList();
+
+    }
+
+
+    public List<JobDto> getJobBySkillsRequired(List<String> skills){
+        List<Jobs> jobs = this.jobRepo.findBySkillsRequiredIn(skills);
+        List<JobDto> jobDtos = jobs.stream().map(this::JobToDto).toList();
+        return jobDtos;
+    }
+
+
     public void deletebyid(int id) {
         jobRepo.deleteById((long) id);
     }
 
-    public Jobs EditeSkills (Jobs jobs){
-        Jobs exsistingJob = jobRepo.findById(jobs.getId()).orElse(null);
-        exsistingJob.setTitle(jobs.getTitle());
-        exsistingJob.setAmount(jobs.getAmount());
-        exsistingJob.setDescription(jobs.getDescription());
-        exsistingJob.setDuration(jobs.getDuration());
-        exsistingJob.setSkillsRequired(jobs.getSkillsRequired());
-        exsistingJob.setPayout_methods(jobs.getPayout_methods());
-        exsistingJob.setProviders_email(jobs.getProviders_email());
-        exsistingJob.setProviders_name(jobs.getProviders_name());
+    public Jobs EditeJob(Jobs jobs){
+        //if condition vapri ne user not found exception nakhva nu che
+        Jobs exsistingJob = jobRepo.findById(jobs.getId());
+        JobDto jobDto = this.JobToDto(exsistingJob);
+        jobDto.setTitle(jobs.getTitle());
+        jobDto.setAmount(jobs.getAmount());
+        jobDto.setDescription(jobs.getDescription());
+        jobDto.setDuration(jobs.getDuration());
+        jobDto.setSkillsRequired(jobs.getSkillsRequired());
+        jobDto.setPayout_methods(jobs.getPayout_methods());
+        jobDto.setProviders_email(jobs.getProviders_email());
+        jobDto.setProviders_name(jobs.getProviders_name());
 
-        return jobRepo.save(exsistingJob);
+        return this.DtoToJob(jobDto);
     }
 
-    private JobDto jobToDto(Jobs jobs){
+    private JobDto JobToDto(Jobs jobs){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         JobDto jobDto = new JobDto();
         jobDto = new ModelMapper().map(jobs, JobDto.class);

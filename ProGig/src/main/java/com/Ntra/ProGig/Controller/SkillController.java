@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.SkillsDto;
 import com.Ntra.ProGig.Entity.Skills;
 import com.Ntra.ProGig.Service.SkillService;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ import java.util.Optional;
 public class SkillController {
     private final SkillService skillService;
     @PostMapping ("/addskill")
-    public Skills addSkill(@RequestBody Skills skills){
-        return   skillService.saveSkill(skills);
+    public Skills addSkill(@RequestBody SkillsDto skillsDto){
+        return   skillService.saveSkill(skillsDto);
     }
     @GetMapping("/skills")
-    public ResponseEntity<List<Skills>> getAllSkills()
-    {   List<Skills> list = skillService.getAllSkills();
+    public ResponseEntity<List<SkillsDto>> getAllSkills()
+    {   List<SkillsDto> list = skillService.getAllSkills();
         if(list.size()<=0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -30,8 +31,8 @@ public class SkillController {
         }
     }
     @GetMapping("/skills/{id}")
-    public ResponseEntity<Skills> findbySkillid(@PathVariable int id) {
-        Skills skills=skillService.getSkillsbyid(id);
+    public ResponseEntity<SkillsDto> findbySkillid(@PathVariable int id) {
+        SkillsDto skills=skillService.getSkillsbyid(id);
         if(skills==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -40,8 +41,8 @@ public class SkillController {
         }
     }
     @PutMapping("updateskill")
-    public ResponseEntity<Skills> EditeSkills(@RequestBody Skills skill1){
-        Skills skills = skillService.EditeSkills(skill1);
+    public ResponseEntity<Skills> EditeSkills(@RequestBody SkillsDto skillsDto){
+        Skills skills = skillService.EditeSkills(skillsDto);
         return ResponseEntity.of(Optional.of(skills));
     }
     @DeleteMapping("/deletskill/{id}")

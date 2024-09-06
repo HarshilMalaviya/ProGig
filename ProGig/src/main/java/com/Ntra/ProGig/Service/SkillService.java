@@ -1,8 +1,11 @@
 package com.Ntra.ProGig.Service;
 
+import com.Ntra.ProGig.Dto.SkillsDto;
 import com.Ntra.ProGig.Entity.Skills;
 import com.Ntra.ProGig.Repository.SkillRepo;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +17,57 @@ import java.util.List;
 public class SkillService {
     @Autowired
     private final SkillRepo skillRepo;
-    public Skills saveSkill(Skills skills){
-        return skillRepo.save(skills);
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+
+    public Skills saveSkill(SkillsDto skillsDto){
+
+        return this.DtoToSkills(skillsDto);
     }
 
-    public List<Skills> getAllSkills()
+
+    public List<SkillsDto> getAllSkills()
     {
-        return skillRepo.findAll();
+
+        List<Skills> skills = this.skillRepo.findAll();
+        return skills.stream().map(this::SkillsToDto).toList();
     }
-    public Skills getSkillsbyid(int id)
+
+
+    public SkillsDto getSkillsbyid(int id)
     {
-        return skillRepo.findById(id).orElse(null);
+
+        Skills skills = this.skillRepo.findById(id).orElse(null);
+        return this.SkillsToDto(skills);
     }
+
+
     public void deletebyid(int id) {
+
         skillRepo.deleteById(id);
     }
-    public Skills EditeSkills (Skills skills){
-        Skills exsistingSkills=skillRepo.findById(skills.getId()).orElse(null);
-        exsistingSkills.setSkillName(skills.getSkillName());
 
-        return skillRepo.save(exsistingSkills);
+
+    public Skills EditeSkills (SkillsDto skillsDto){
+        SkillsDto existiogSkillsDto = new SkillsDto();
+        existiogSkillsDto.setSkillName(skillsDto.getSkillName());
+
+        return this.DtoToSkills(existiogSkillsDto);
+    }
+
+    private SkillsDto SkillsToDto(Skills skills){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        SkillsDto skillsDto = new SkillsDto();
+        skillsDto = new ModelMapper().map(skills, SkillsDto.class);
+        return skillsDto;
+    }
+
+    private Skills DtoToSkills(SkillsDto skillsDto) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        Skills skills = new Skills();
+        skills = new ModelMapper().map(skillsDto, Skills.class);
+        return skills;
     }
 }

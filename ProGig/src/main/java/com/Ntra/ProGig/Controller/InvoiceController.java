@@ -19,8 +19,8 @@ public class InvoiceController {
     @Autowired
     private final InvoiceService invoiceService;
     @PostMapping("/addInvoice")
-    public Invoice addInvoice(@RequestBody Invoice invoice){
-        return   invoiceService.saveInvoice(invoice);
+    public Invoice addInvoice(@RequestBody InvoiceDto invoiceDto){
+        return   invoiceService.saveInvoice(invoiceDto);
     }
     @GetMapping("/getAll")
     public ResponseEntity<List<InvoiceDto>> getAllInvoice()

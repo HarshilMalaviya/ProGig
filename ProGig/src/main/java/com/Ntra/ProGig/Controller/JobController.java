@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.JobDto;
 import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Service.JobsService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class JobController {
         return   jobsService.saveJobs(jobs);
     }
     @GetMapping("/Jobs")
-    public ResponseEntity<List<Jobs>> getAllJobs()
-    {   List<Jobs> list = jobsService.getAllJobs();
+    public ResponseEntity<List<JobDto>> getAllJobs()
+    {   List<JobDto> list = jobsService.getAllJobs();
         if(list.size()<=0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -30,18 +31,18 @@ public class JobController {
         }
     }
     @GetMapping("/job_id/{id}")
-    public ResponseEntity<Jobs> findbyJobId(@PathVariable int id) {
-      Jobs jobs=jobsService.getJobBYID(id);
-        if(jobs==null){
+    public ResponseEntity<JobDto> findbyJobId(@PathVariable int id) {
+      JobDto jobDto=jobsService.getJobBYID(id);
+        if(jobDto==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         else {
-            return ResponseEntity.of(Optional.of(jobs));
+            return ResponseEntity.of(Optional.of(jobDto));
         }
     }
     @GetMapping("/job/skill/{skill}")
-    public ResponseEntity<List<Jobs>> findJobbySkills(@PathVariable String skill) {
-       List<Jobs> jobs=jobsService.getJobByskillRequired(skill);
+    public ResponseEntity<List<JobDto>> findJobbySkills(@PathVariable String skill) {
+       List<JobDto> jobs=jobsService.getJobByskillRequired(skill);
         if(jobs==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -50,8 +51,8 @@ public class JobController {
         }
     }
     @GetMapping("/job/skills")
-    public ResponseEntity<List<Jobs>> findJobBySkills(@RequestParam(value = "skill") List<String> skill) {
-        List<Jobs> jobs=jobsService.getJobByskilslRequired(skill);
+    public ResponseEntity<List<JobDto>> findJobBySkills(@RequestParam(value = "skill") List<String> skill) {
+        List<JobDto> jobs=jobsService.getJobBySkillsRequired(skill);
         if(jobs==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -63,7 +64,7 @@ public class JobController {
 
     @PutMapping("/updateJob")
     public ResponseEntity<Jobs> EditeJobs(@RequestBody Jobs job){
-        Jobs jobs = jobsService.EditeSkills(job);
+        Jobs jobs = jobsService.EditeJob(job);
         return ResponseEntity.of(Optional.of(jobs));
     }
     @DeleteMapping("/deleteJob/{id}")
