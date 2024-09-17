@@ -1,13 +1,16 @@
 package com.Ntra.ProGig.Dto;
 
 import com.Ntra.ProGig.Entity.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+
 @Data
-public class StackHolderDTO {
+public class StackHolder2Dto {
+    private int id;
     private String firstname;
     private String lastname;
     private String username;
@@ -15,4 +18,5 @@ public class StackHolderDTO {
     private long contact;
     private String password;
     private Role role;
+
 }

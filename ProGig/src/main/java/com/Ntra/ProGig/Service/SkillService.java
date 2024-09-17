@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +52,7 @@ public class SkillService {
 
 
     public Skills EditeSkills (SkillsDto skillsDto){
+        Optional<Skills> skills = this.skillRepo.findById(this.DtoToSkills(skillsDto).getId());
         SkillsDto existiogSkillsDto = new SkillsDto();
         existiogSkillsDto.setSkillName(skillsDto.getSkillName());
 

@@ -61,7 +61,7 @@ public class JobsService {
         jobRepo.deleteById((long) id);
     }
 
-    public Jobs EditeJob(Jobs jobs){
+    public Jobs EditeJob(JobDto jobs){
         //if condition vapri ne user not found exception nakhva nu che
         Jobs exsistingJob = jobRepo.findById(jobs.getId());
         JobDto jobDto = this.JobToDto(exsistingJob);

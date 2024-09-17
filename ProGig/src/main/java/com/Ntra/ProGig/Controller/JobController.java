@@ -23,7 +23,7 @@ public class JobController {
     @GetMapping("/Jobs")
     public ResponseEntity<List<JobDto>> getAllJobs()
     {   List<JobDto> list = jobsService.getAllJobs();
-        if(list.size()<=0){
+        if(list.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         else{
@@ -63,7 +63,7 @@ public class JobController {
 
 
     @PutMapping("/updateJob")
-    public ResponseEntity<Jobs> EditeJobs(@RequestBody Jobs job){
+    public ResponseEntity<Jobs> EditeJobs(@RequestBody JobDto job){
         Jobs jobs = jobsService.EditeJob(job);
         return ResponseEntity.of(Optional.of(jobs));
     }
