@@ -12,5 +12,5 @@ public interface JobRepo extends JpaRepository<Jobs,Long> {
 
   List<Jobs>findBySkillsRequiredIn(List<String> skills);
   List<Jobs> findBySkillsRequired(String skillsRequired);
-  Optional<Jobs> findById(Integer integer);
+  Jobs findById(Integer integer);
 }

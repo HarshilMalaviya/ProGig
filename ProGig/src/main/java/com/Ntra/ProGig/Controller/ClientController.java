@@ -26,7 +26,7 @@ public class ClientController {
 
     public ResponseEntity<UserDto> getClientById(@PathVariable Integer id) {
         return ResponseEntity.ok(this.clientService.getClientById(id));
-      
+    }
       
     @GetMapping("/username/{username}")
     public UserDto getClientByUsername(@PathVariable String username) {

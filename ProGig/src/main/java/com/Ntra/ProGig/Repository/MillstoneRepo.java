@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface MillstoneRepo extends JpaRepository<Millstone,Integer> {
-    Optional<Millstone> findMillstoneByJobTitle(String jobTitle);
+    Millstone findMillstoneByJobTitle(String jobTitle);
 }

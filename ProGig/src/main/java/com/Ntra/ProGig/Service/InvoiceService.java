@@ -21,9 +21,8 @@ public class InvoiceService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Invoice saveInvoice (Invoice invoice){
+    public Invoice saveInvoice (InvoiceDto invoiceDto){
 
-        InvoiceDto invoiceDto = this.InvoiceToDto(invoice);
         return this.DtoToInvoice(invoiceDto);
 
     }

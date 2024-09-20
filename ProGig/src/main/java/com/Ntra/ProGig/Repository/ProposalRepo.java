@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface ProposalRepo extends JpaRepository<Proposals,Integer> {
-    Optional<Proposals> findByJobTitle(String jobTitle);
+    Proposals findByJobTitle(String jobTitle);
 }
