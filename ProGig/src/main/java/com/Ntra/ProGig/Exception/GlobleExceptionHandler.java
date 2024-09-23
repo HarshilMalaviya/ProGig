@@ -26,7 +26,7 @@ public class GlobleExceptionHandler  {
     }
     @ExceptionHandler(NoContentException.class)
     public ResponseEntity<ErrorResponse> handleAPIRequestException(NoContentException e){
-        ErrorResponse errorResponse=new ErrorResponse(e.getMessage(),HttpStatus.OK);
+        ErrorResponse errorResponse=new ErrorResponse(e.getMessage(),HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(errorResponse,HttpStatus.NO_CONTENT);
     }
 

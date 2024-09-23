@@ -3,10 +3,12 @@ package com.Ntra.ProGig.Service;
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Dto.UserDto;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,32 +24,55 @@ public class FreelancerService {
     private ModelMapper modelMapper;
 
     public List<UserDto> getAllFreelancer(){
-        List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
-        List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
-        return userDtos;
+        try {
+            List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+            List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+            return userDtos;
+        }catch (NoContentException e){
+            throw new NoContentException("No_Content");
+        }
     }
 
 
     public UserDto getFreelancerByUsername(String username){
-        User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
-        UserDto userDtos = this.UserToDto(users);
-        return userDtos;
+        try {
+            User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        }catch (UsernameNotFoundException e){
+            throw new UsernameNotFoundException("There is No such User");
+        }
+
     }
 
     public UserDto getFreelancerByEmail(String email){
-        User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
-        UserDto userDtos = this.UserToDto(users);
-        return userDtos;
+        try {
+            User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        }catch (UsernameNotFoundException){
+            throw new UsernameNotFoundException("there is no user with such Email!!");
+        }
+
     }
 
     public UserDto getFreelancerById(Integer id){
-        User users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
-        UserDto userDtos = this.UserToDto(users);
-        return userDtos;
+        try {
+            User users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        } catch (UsernameNotFoundException e) {
+            throw new UsernameNotFoundException("ID_Not_Found");
+        }
     }
 
-    public void deleteFreelancer(Integer id){
-        repo.deleteById(id);
+    public String deleteFreelancer(Integer id){
+        try {
+            repo.deleteById(id);
+            return "ID deleted"+id;
+        } catch (UsernameNotFoundException e) {
+            throw new UsernameNotFoundException("ID_Not_Found");
+        }
     }
 
     public User acceptFreelancer(Integer id){

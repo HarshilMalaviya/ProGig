@@ -31,7 +31,6 @@ public class StakHolderService {
     }catch (UsernameNotFoundException e){
       throw new UsernameNotFoundException("There is no StackHolder");
     }
-
   }
   public StackHolder2Dto getuserbyid(int id)
   {
