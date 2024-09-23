@@ -40,7 +40,7 @@ public class StakHolderController {
         return user;
     }
     @PutMapping("update")
-    public ResponseEntity<StakHolder> EditeUser(@RequestBody StackHolder2Dto user1){
+    public ResponseEntity<StakHolder> EditeUser(@RequestBody StackHolder2Dto user1) {
         StakHolder user= userService.EditeUser(user1);
          return ResponseEntity.of(Optional.of(user));
     }
