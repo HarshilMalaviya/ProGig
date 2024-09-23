@@ -1,6 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
-import com.Ntra.ProGig.Entity.Transaction;
+import com.Ntra.ProGig.Dto.TransactionDto;
 import com.Ntra.ProGig.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class TransactionController {
     private TransactionService service;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Transaction>> getAllTransaction(){
+    public ResponseEntity<List<TransactionDto>> getAllTransaction(){
         return ResponseEntity.ok(this.service.getAllTransaction());
 
     }
