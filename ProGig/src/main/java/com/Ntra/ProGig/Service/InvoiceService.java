@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.InvoiceDto;
 import com.Ntra.ProGig.Entity.Invoice;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.InvoiceRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,14 +29,22 @@ public class InvoiceService {
     }
     public List<InvoiceDto> getAllInvoice (){
 
-        List<Invoice> invoices = invoiceRepo.findAll();
-        return invoices.stream().map(this::InvoiceToDto).toList();
+        try {
+            List<Invoice> invoices = invoiceRepo.findAll();
+            return invoices.stream().map(this::InvoiceToDto).toList();
+        } catch (NoContentException e) {
+            throw new NoContentException("No_Content");
+        }
     }
     public List<InvoiceDto> getById(Integer id){
 
-        Optional<Invoice> invoice =this.invoiceRepo.findById(id);
-        List<InvoiceDto> invoiceDto = invoice.map(this::InvoiceToDto).stream().toList();
-        return invoiceDto;
+        try {
+            Optional<Invoice> invoice =this.invoiceRepo.findById(id);
+            List<InvoiceDto> invoiceDto = invoice.map(this::InvoiceToDto).stream().toList();
+            return invoiceDto;
+        } catch (NoContentException e) {
+            throw new NoContentException("No_Content");
+        }
     }
 
     private InvoiceDto InvoiceToDto(Invoice invoice){

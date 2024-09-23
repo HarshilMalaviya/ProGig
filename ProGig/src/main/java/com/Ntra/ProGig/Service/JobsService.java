@@ -2,6 +2,8 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.JobDto;
 import com.Ntra.ProGig.Entity.Jobs;
+import com.Ntra.ProGig.Exception.NoContentException;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.JobRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -25,45 +27,76 @@ public class JobsService {
 
     public Jobs saveJobs (Jobs jobs)
     {
-        JobDto jobDto = this.JobToDto(jobs);
-        return this.DtoToJob(jobDto);
+        try {
+            JobDto jobDto = this.JobToDto(jobs);
+            return this.DtoToJob(jobDto);
+        } catch (Exception e) {
+            throw new RuntimeException("Something Went Wrong!!");
+        }
     }
 
 
     public List<JobDto> getAllJobs (){
-        List<Jobs> jobs = jobRepo.findAll();
-        return jobs.stream().map(this::JobToDto).toList();
+        try {
+            List<Jobs> jobs = jobRepo.findAll();
+            return jobs.stream().map(this::JobToDto).toList();
+        } catch (NoClassDefFoundError e) {
+            throw new NoContentException("No such Content");
+        }
     }
 
 
     public JobDto getJobBYID(int id){
 
-        Jobs jobs =this.jobRepo.findById(id);
-        return this.JobToDto(jobs);
+        try {
+            Jobs jobs =this.jobRepo.findById(id);
+            return this.JobToDto(jobs);
+        } catch (NoContentException e) {
+            throw new NoContentException("ID not Found");
+        }
     }
 
 
     public List<JobDto> getJobByskillRequired(String skills){
-        List<Jobs> jobs = this.jobRepo.findBySkillsRequired(skills);
-        return jobs.stream().map(this::JobToDto).toList();
+        try {
+            List<Jobs> jobs = this.jobRepo.findBySkillsRequired(skills);
+            return jobs.stream().map(this::JobToDto).toList();
+        } catch (Exception e) {
+            throw new RuntimeException("NO_SUCH_SKILL");
+        }
 
     }
 
 
     public List<JobDto> getJobBySkillsRequired(List<String> skills){
-        List<Jobs> jobs = this.jobRepo.findBySkillsRequiredIn(skills);
-        List<JobDto> jobDtos = jobs.stream().map(this::JobToDto).toList();
-        return jobDtos;
+        try {
+            List<Jobs> jobs = this.jobRepo.findBySkillsRequiredIn(skills);
+            List<JobDto> jobDtos = jobs.stream().map(this::JobToDto).toList();
+            return jobDtos;
+        } catch (Exception e) {
+            throw new RuntimeException("NO_SUCH_SKILLS");
+        }
     }
 
 
-    public void deletebyid(int id) {
-        jobRepo.deleteById((long) id);
+    public String deletebyid(int id) {
+        try {
+            jobRepo.deleteById((long) id);
+            return "ID Delete"+id;
+        } catch (UserNotFoundException e) {
+            throw new UserNotFoundException("NO_SUCH_USER");
+        }
+
     }
 
     public Jobs EditeJob(JobDto jobs){
-        //if condition vapri ne user not found exception nakhva nu che
-        Jobs exsistingJob = jobRepo.findById(jobs.getId());
+
+        Jobs exsistingJob = null;
+        try {
+            exsistingJob = jobRepo.findById(jobs.getId());
+        } catch (NoContentException e) {
+            throw new NoContentException("NO_SUCH_JOB");
+        }
         JobDto jobDto = this.JobToDto(exsistingJob);
         jobDto.setTitle(jobs.getTitle());
         jobDto.setAmount(jobs.getAmount());

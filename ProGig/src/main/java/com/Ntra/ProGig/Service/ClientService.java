@@ -48,19 +48,38 @@ public class ClientService {
     }
 
     public UserDto getClientByEmail(String email){
-        User users =this.repo.findByEmailAndRole(email,UserRole.CLIENT);
-        UserDto userDtos = this.UserToDto(users);
-        return userDtos;
+        try {
+            User users =this.repo.findByEmailAndRole(email,UserRole.CLIENT);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        }
+        catch (UserNotFoundException e){
+            throw new UserNotFoundException("there is no user with such Email!!");
+        }
+
     }
 
     public UserDto getClientById(Integer id){
-        User users =this.repo.findByIdAndRole(id,UserRole.CLIENT);
-        UserDto userDtos = this.UserToDto(users);
-        return userDtos;
+        try {
+            User users =this.repo.findByIdAndRole(id,UserRole.CLIENT);
+            UserDto userDtos = this.UserToDto(users);
+            return userDtos;
+        }
+        catch (UsernameNotFoundException e){
+            throw new UserNotFoundException("there is no user related to the Id given !!");
+        }
+
     }
 
-    public void deleteClient(Integer id){
-        repo.deleteById(id);
+    public String deleteClient(Integer id){
+        try {
+            repo.deleteById(id);
+            return "Id Deleted"+id;
+        }
+        catch (UsernameNotFoundException e){
+            throw new UserNotFoundException("there is no such data");
+        }
+
     }
 
     public User acceptClient(Integer id){

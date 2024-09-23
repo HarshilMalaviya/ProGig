@@ -5,6 +5,7 @@ import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.AuthenticationResponse;
 import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Exception.UserAlreadyExistsException;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,7 +35,7 @@ public class AuthService {
                         request.getPassword()
                 )
         );
-        StakHolder user=userRepo.findByUsername(request.getUsername()).orElseThrow() ;
+        StakHolder user=userRepo.findByUsername(request.getUsername()).orElseThrow(()->new UserNotFoundException("user is not there")) ;
 
         String token = jwtService.generateToken(user);
         return new AuthenticationResponse(token);
