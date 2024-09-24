@@ -33,6 +33,12 @@ public class FreelancerService {
         }
     }
 
+    public Integer freelancerCount(){
+        List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+        List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
+        return userDtos.size();
+    }
+
 
     public UserDto getFreelancerByUsername(String username){
         try {
