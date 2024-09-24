@@ -22,9 +22,14 @@ public class JobsService {
     @Autowired
     private final JobRepo jobRepo;
 
+
     @Autowired
     private ModelMapper modelMapper;
+    public int jobCount(){
 
+    return (int) jobRepo.count();
+
+    }
     public Jobs saveJobs (Jobs jobs)
     {
         try {

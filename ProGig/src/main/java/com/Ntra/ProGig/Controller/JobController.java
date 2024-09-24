@@ -61,6 +61,12 @@ public class JobController {
         }
     }
 
+    @GetMapping("/Count")
+    public int Count(){
+        return jobsService.jobCount();
+    }
+
+
     @PutMapping("/updateJob")
     public ResponseEntity<Jobs> EditeJobs(@RequestBody JobDto job){
         Jobs jobs = jobsService.EditeJob(job);
