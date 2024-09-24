@@ -32,7 +32,8 @@ public class SecurityConfig {
     };
     private static final String[] Private_URL={
             "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-            "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**"
+            "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
+            "/clientCount"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

@@ -38,12 +38,19 @@ public class FreelancerController {
         return ResponseEntity.ok(this.service.getFreelancerById(id));
     }
 
+    @GetMapping("/clientCount")
+    public ResponseEntity<Integer> freelancerCount(){
+        return ResponseEntity.ok(service.freelancerCount());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteFreelancer(@PathVariable("id") Integer id){
         service.deleteFreelancer(id);
         return new ResponseEntity<ApiResponse>(new ApiResponse
                 ("user deleted successfully",true), HttpStatus.OK);
     }
+
+
 
     @PostMapping("/{id}/accept")
     public ResponseEntity<User> acceptFreelancer(@PathVariable Integer id) {

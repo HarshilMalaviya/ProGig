@@ -38,6 +38,11 @@ public class ClientController {
         return ResponseEntity.ok(this.clientService.getClientByEmail(email));
     }
 
+    @GetMapping("/clientCount")
+    public ResponseEntity<Integer> clientCount(){
+        return ResponseEntity.ok(clientService.clientCount());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Integer id) {
         clientService.deleteClient(id);
