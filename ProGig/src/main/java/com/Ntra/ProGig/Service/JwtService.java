@@ -1,7 +1,6 @@
 package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.LoginDTO;
-import com.Ntra.ProGig.Entity.StakHolder;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

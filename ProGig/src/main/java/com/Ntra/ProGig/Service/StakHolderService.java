@@ -1,8 +1,8 @@
 package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.StackHolder2Dto;
-import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.StakHolder;
+import com.Ntra.ProGig.Exception.OkStatus;
 import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
 import lombok.RequiredArgsConstructor;
@@ -41,13 +41,13 @@ public class StakHolderService {
     StakHolder stakHolder = this.userRepo.findById(id).orElseThrow(()->new UserNotFoundException("THERE IS NO USER ID :"+id));
     return this.EntityToStackeDto(stakHolder);
   }
-  public String deletebyid(int id){
+  public Void deletebyid(int id){
     userRepo.deleteById(id);
-    return"user deleted"+id;
+    throw  new OkStatus("StackHolder Is deleted");
   }
   public StakHolder EditeUser (StackHolder2Dto stackHolderDTO){
 
-    StakHolder user=userRepo.findById(stackHolderDTO.getId()).orElse(null);
+    StakHolder user=userRepo.findById(stackHolderDTO.getId()).orElseThrow(()->new UserNotFoundException("User not Present"));
     StackHolder2Dto exsistingUser = new StackHolder2Dto();
     exsistingUser.setLastname(stackHolderDTO.getLastname());
     exsistingUser.setFirstname(stackHolderDTO.getFirstname());
@@ -56,6 +56,7 @@ public class StakHolderService {
     exsistingUser.setRole(stackHolderDTO.getRole());
     exsistingUser.setContact(stackHolderDTO.getContact());
     return this.StackDTOtoEntity(exsistingUser);
+
   }
 
   public StackHolder2Dto EntityToStackeDto(StakHolder stakHolder){
@@ -68,5 +69,4 @@ public class StakHolderService {
     stakHolder=modelMapper.map(stackHolderDTO,StakHolder.class);
     return stakHolder;
   }
-
 }

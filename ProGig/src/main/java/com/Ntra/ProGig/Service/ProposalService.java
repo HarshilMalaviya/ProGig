@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.ProposalsDto;
 import com.Ntra.ProGig.Entity.Proposals;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.ProposalRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -17,8 +18,12 @@ public class ProposalService {
     private ModelMapper modelMapper;
 
     public ProposalsDto findByJobTitle(String jobTitle){
-        Proposals proposals = this.repo.findByJobTitle(jobTitle);
-        return this.ProposalsToDto(proposals);
+        try {
+            Proposals proposals = this.repo.findByJobTitle(jobTitle);
+            return this.ProposalsToDto(proposals);
+        } catch (UserNotFoundException e) {
+            throw new UserNotFoundException("there is no proposal present");
+        }
     }
 
     private ProposalsDto ProposalsToDto(Proposals proposals){
