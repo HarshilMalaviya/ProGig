@@ -28,6 +28,10 @@ public class StakHolderController {
 //        }
         return list;
     }
+    @GetMapping("/Count")
+    public int Count(){
+        return userService.StackHolderCount();
+    }
     @GetMapping("/users/{id}")
     public StackHolder2Dto findbyUserid(@PathVariable int id) {
         StackHolder2Dto user=userService.getuserbyid(id);

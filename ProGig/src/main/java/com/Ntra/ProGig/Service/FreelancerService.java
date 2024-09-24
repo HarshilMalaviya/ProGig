@@ -50,7 +50,7 @@ public class FreelancerService {
             User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
             UserDto userDtos = this.UserToDto(users);
             return userDtos;
-        }catch (UsernameNotFoundException){
+        }catch (UsernameNotFoundException e){
             throw new UsernameNotFoundException("there is no user with such Email!!");
         }
 

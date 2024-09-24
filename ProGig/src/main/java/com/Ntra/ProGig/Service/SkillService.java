@@ -21,7 +21,11 @@ public class SkillService {
 
     @Autowired
     private ModelMapper modelMapper;
+    public int SkillCount(){
 
+        return (int) skillRepo.count();
+
+    }
 
     public Skills saveSkill(SkillsDto skillsDto){
 

@@ -22,7 +22,11 @@ public class StakHolderService {
 
   @Autowired
   private ModelMapper modelMapper;
+  public int StackHolderCount(){
 
+    return (int) userRepo.count();
+
+  }
   public List<StackHolder2Dto> getusers()
   {
     try {
