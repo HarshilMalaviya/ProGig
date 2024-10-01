@@ -2,6 +2,8 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.MillstoneDto;
 import com.Ntra.ProGig.Entity.Millstone;
+import com.Ntra.ProGig.Exception.NoContentException;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.MillstoneRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,14 +20,22 @@ public class MillstoneService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<MillstoneDto> findAllMilestone(){
-        List<Millstone> millstones = repo.findAll();
-        return millstones.stream().map(this::MillstoneToDto).toList();
+    public List<MillstoneDto> findAllMilestone() {
+        try {
+            List<Millstone> millstones = repo.findAll();
+            return millstones.stream().map(this::MillstoneToDto).toList();
+        } catch (NoContentException e) {
+            throw new NoContentException("Milestone data is not present");
+        }
     }
 
-    public MillstoneDto findByJobTitle(String jobTitle){
-        Millstone millstone = this.repo.findMillstoneByJobTitle(jobTitle);
-        return this.MillstoneToDto(millstone);
+    public MillstoneDto findByJobTitle(String jobTitle) {
+        try {
+            Millstone millstone = this.repo.findMillstoneByJobTitle(jobTitle);
+            return this.MillstoneToDto(millstone);
+        } catch (UserNotFoundException e) {
+            throw new UserNotFoundException("Milestone is not present");
+        }
     }
 
     private MillstoneDto MillstoneToDto(Millstone millstone){

@@ -60,10 +60,12 @@ public class JobController {
             return ResponseEntity.of(Optional.of(jobs));
         }
     }
+
     @GetMapping("/Count")
     public int Count(){
         return jobsService.jobCount();
     }
+
 
     @PutMapping("/updateJob")
     public ResponseEntity<Jobs> EditeJobs(@RequestBody JobDto job){

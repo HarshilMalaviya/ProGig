@@ -2,6 +2,9 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.SkillsDto;
 import com.Ntra.ProGig.Entity.Skills;
+import com.Ntra.ProGig.Exception.NoContentException;
+import com.Ntra.ProGig.Exception.OkStatus;
+import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.SkillRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,18 +36,21 @@ public class SkillService {
     }
 
 
-    public List<SkillsDto> getAllSkills()
-    {
-
-        List<Skills> skills = this.skillRepo.findAll();
-        return skills.stream().map(this::SkillsToDto).toList();
+    public List<SkillsDto> getAllSkills() {
+        try {
+            List<Skills> skills = this.skillRepo.findAll();
+            return skills.stream().map(this::SkillsToDto).toList();
+        }
+        catch (NoContentException e){
+            throw  new NoContentException("Data is not present");
+        }
     }
 
 
     public SkillsDto getSkillsbyid(int id)
     {
 
-        Skills skills = this.skillRepo.findById(id).orElse(null);
+        Skills skills = this.skillRepo.findById(id).orElseThrow(()-> new UserNotFoundException("Skill not found"));
         return this.SkillsToDto(skills);
     }
 
@@ -52,11 +58,12 @@ public class SkillService {
     public void deletebyid(int id) {
 
         skillRepo.deleteById(id);
+        throw new OkStatus("Skill Successfully Deleted");
     }
 
 
     public Skills EditeSkills (SkillsDto skillsDto){
-        Optional<Skills> skills = this.skillRepo.findById(this.DtoToSkills(skillsDto).getId());
+        Skills skills = this.skillRepo.findById(this.DtoToSkills(skillsDto).getId()).orElseThrow(()->new UserNotFoundException("Skill not found"));
         SkillsDto existiogSkillsDto = new SkillsDto();
         existiogSkillsDto.setSkillName(skillsDto.getSkillName());
 

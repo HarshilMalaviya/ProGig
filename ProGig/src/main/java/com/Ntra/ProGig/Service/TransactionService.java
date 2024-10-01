@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.TransactionDto;
 import com.Ntra.ProGig.Entity.Transaction;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.TransactionRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,11 +19,16 @@ public class TransactionService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<TransactionDto> getAllTransaction(){
-        List<Transaction> transaction = this.repo.findAll();
-        return transaction.stream().map(this::TransactionToDto).toList();
-    }
+    public List<TransactionDto> getAllTransaction() {
+        try {
 
+            List<Transaction> transaction = this.repo.findAll();
+            return transaction.stream().map(this::TransactionToDto).toList();
+
+        } catch (NoContentException e) {
+            throw new NoContentException("There is not any data present yet");
+        }
+    }
     private TransactionDto TransactionToDto(Transaction transaction){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         TransactionDto transactionDto = new TransactionDto();
