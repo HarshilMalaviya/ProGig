@@ -19,6 +19,8 @@ public class Proposals {
     @Column(name = "ID")
     private Integer id;
 
+    private String clientName;
+
     private String jobTitle;
 
     private String freelancerName;

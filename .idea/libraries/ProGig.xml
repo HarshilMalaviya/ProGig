@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ProGig">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/ProGig_jar/ProGig.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
