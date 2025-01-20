@@ -59,11 +59,7 @@ public class ClientService {
 
     }
 
-    public Integer clientCount(){
-        List<User> users =this.repo.findAllByRole(UserRole.CLIENT);
-        List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
-        return userDtos.size();
-    }
+
 
     public Integer clientCount(){
         List<User> users =this.repo.findAllByRole(UserRole.CLIENT);
