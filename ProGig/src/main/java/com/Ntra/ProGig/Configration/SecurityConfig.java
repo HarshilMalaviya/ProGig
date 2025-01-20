@@ -26,14 +26,13 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private static final String[] Public_URL= {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
-
             "/swagger-ui/**",
             "/webjars/**","/api-docs/**"
     };
     private static final String[] Private_URL={
             "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
             "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
-            "/clientCount"
+            "/freelancerCount"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

@@ -38,7 +38,7 @@ public class FreelancerController {
         return ResponseEntity.ok(this.service.getFreelancerById(id));
     }
 
-    @GetMapping("/clientCount")
+    @GetMapping("/freelancerCount")
     public ResponseEntity<Integer> freelancerCount(){
         return ResponseEntity.ok(service.freelancerCount());
     }

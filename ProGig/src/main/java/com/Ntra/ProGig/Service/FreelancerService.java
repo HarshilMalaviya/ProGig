@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.Ntra.ProGig.Entity.UserRole.FREELANCER;
+
 @Service
 public class FreelancerService {
     @Autowired
@@ -22,32 +24,32 @@ public class FreelancerService {
     private ModelMapper modelMapper;
 
     public List<UserDto> getAllFreelancer(){
-        List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+        List<User> users =this.repo.findAllByRole(FREELANCER);
         List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
         return userDtos;
     }
 
     public Integer freelancerCount(){
-        List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+        List<User> users =this.repo.findAllByRole(FREELANCER);
         List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
         return userDtos.size();
     }
 
 
     public UserDto getFreelancerByUsername(String username){
-        User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
+        User users =this.repo.findByUsernameAndRole(username, FREELANCER);
         UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
     public UserDto getFreelancerByEmail(String email){
-        User users =this.repo.findByEmailAndRole(email,UserRole.FREELANCER);
+        User users =this.repo.findByEmailAndRole(email, FREELANCER);
         UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
 
     public UserDto getFreelancerById(Integer id){
-        User users =this.repo.findByIdAndRole(id,UserRole.FREELANCER);
+        User users =this.repo.findByIdAndRole(id, FREELANCER);
         UserDto userDtos = this.UserToDto(users);
         return userDtos;
     }
