@@ -38,7 +38,8 @@ public class ClientController {
         return ResponseEntity.ok(this.clientService.getClientByEmail(email));
     }
 
-    @GetMapping("/freelancerCount")
+
+    @GetMapping("/clientCount")
     public ResponseEntity<Integer> clientCount(){
         return ResponseEntity.ok(clientService.clientCount());
     }

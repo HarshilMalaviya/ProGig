@@ -16,6 +16,10 @@ import java.util.Optional;
 @RequestMapping("/Skills")
 public class SkillController {
     private final SkillService skillService;
+    @GetMapping("/Count")
+    public int Count(){
+        return skillService.SkillCount();
+    }
     @PostMapping ("/addskill")
     public Skills addSkill(@RequestBody SkillsDto skillsDto){
         return   skillService.saveSkill(skillsDto);
