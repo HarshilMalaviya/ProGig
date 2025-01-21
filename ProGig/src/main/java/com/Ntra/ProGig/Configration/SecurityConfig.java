@@ -58,13 +58,14 @@ public class SecurityConfig {
     private static final String[] Public_URL= {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
 
-            "/swagger-ui/**","/Users/**","/proposals/**",
-            "/webjars/**","/api-docs/**","/jobs/**","/getAllUser/**"
+            "/swagger-ui/**",
+            "/webjars/**","/api-docs/**"
     };
     private static final String[] Private_URL={
-            "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
-            "/Skills/**","/freelancer/**","/clients/**","/Transaction/**",
-            "/clientCount"
+            "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
+            "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
+            "/freelancerCount"
+            ,"/clientCount"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

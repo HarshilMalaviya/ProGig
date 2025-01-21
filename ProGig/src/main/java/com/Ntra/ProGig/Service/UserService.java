@@ -18,6 +18,7 @@ public class UserService {
     @Autowired
     private UserRepo repo;
 
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -30,6 +31,7 @@ public class UserService {
             throw new NoContentException("No_Content");
         }
     }
+
 
     public User saveUser(User user) {
         User createUser = this.repo.save(user);

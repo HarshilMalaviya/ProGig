@@ -47,7 +47,9 @@ public class StakHolderService {
   }
   public StakHolder EditeUser (StackHolder2Dto stackHolderDTO){
 
-    StakHolder user=userRepo.findByUsername((stackHolderDTO.getUsername())).orElseThrow(()->new UserNotFoundException("User not Present"));
+
+    StakHolder user=userRepo.findByUsername(stackHolderDTO.getUsername()).orElseThrow(()->new UserNotFoundException("User not Present"));
+
     StackHolder2Dto exsistingUser = new StackHolder2Dto();
     exsistingUser.setLastname(stackHolderDTO.getLastname());
     exsistingUser.setFirstname(stackHolderDTO.getFirstname());

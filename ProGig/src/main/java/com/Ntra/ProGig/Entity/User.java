@@ -17,7 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "User")
-public class User  {
+
+public class User{
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +52,3 @@ public class User  {
 //    }
 
 
-}
