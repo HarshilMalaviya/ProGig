@@ -2,7 +2,6 @@ package com.Ntra.ProGig.Configration;
 
 import com.Ntra.ProGig.Filter.JwtAuthFilter;
 import com.Ntra.ProGig.Service.UserServiceImpl;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
