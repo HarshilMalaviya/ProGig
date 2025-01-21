@@ -2,7 +2,6 @@
   <artifact type="jar" name="ProGig:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ProGig_jar</output-path>
     <root id="archive" name="ProGig.jar">
-
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/ProGig/target/META-INF/MANIFEST.MF" />
       </element>
