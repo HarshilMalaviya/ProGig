@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.ContractDto;
 import com.Ntra.ProGig.Entity.Contract;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.ContractRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,8 +20,13 @@ public class ContractService {
     private ModelMapper modelMapper;
 
     public List<ContractDto> getAllContract(){
-        List<Contract> contracts = repo.findAll();
-        return contracts.stream().map(this::UserToDto).toList();
+        try {
+            List<Contract> contracts = repo.findAll();
+            return contracts.stream().map(this::UserToDto).toList();
+        }catch (NoContentException e){
+            throw new NoContentException("Empty Disc!!!");
+        }
+
     }
 
     private ContractDto UserToDto(Contract contract){

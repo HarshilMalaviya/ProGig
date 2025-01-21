@@ -22,7 +22,11 @@ public class StakHolderService {
 
   @Autowired
   private ModelMapper modelMapper;
+  public int StackHolderCount(){
 
+    return (int) userRepo.count();
+
+  }
   public List<StackHolder2Dto> getusers()
   {
     try {
@@ -31,7 +35,6 @@ public class StakHolderService {
     }catch (UsernameNotFoundException e){
       throw new UsernameNotFoundException("There is no StackHolder");
     }
-
   }
   public StackHolder2Dto getuserbyid(int id)
   {

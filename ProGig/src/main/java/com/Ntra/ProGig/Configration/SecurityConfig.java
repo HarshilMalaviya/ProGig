@@ -34,6 +34,7 @@ public class SecurityConfig {
             "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
             "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
             "/freelancerCount"
+            ,"/clientCount"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
