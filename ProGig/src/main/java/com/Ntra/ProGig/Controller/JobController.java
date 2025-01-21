@@ -5,15 +5,16 @@ import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Service.JobsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("http://192.168.31.177:5173/**")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/jobs")
+@RequestMapping(path="/jobs",produces = {MediaType.APPLICATION_JSON_VALUE})
 public class JobController {
     private final JobsService jobsService;
     @PostMapping("/addjobs")

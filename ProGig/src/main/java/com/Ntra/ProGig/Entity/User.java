@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "User")
-public class User implements UserDetails {
+public class User  {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,36 +36,19 @@ public class User implements UserDetails {
     private List<String> skills;
 
     private String description;
+
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private List<UserRole> role;
 
     private String status;
 
     private String whyRejected;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return Collections.singleton(new SimpleGrantedAuthority(role.add()));
+//    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

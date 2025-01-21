@@ -17,7 +17,7 @@ public class Invoice {
     private String ClientCompanyName;
     private String ClientName;
     private String FreelancerName;
-    private String FreelancerIdProfe;
+    private String FreelancerIdProof;
     private String MilestoneTitle;
     private long MilestonePaymentAmount;
     private long PortalCommission;
