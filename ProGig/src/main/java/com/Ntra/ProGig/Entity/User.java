@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "User")
+
 public class User{
     @Id
     @Column(name = "Id")
@@ -36,12 +37,18 @@ public class User{
     private List<String> skills;
 
     private String description;
+
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private List<UserRole> role;
 
     private String status;
 
     private String whyRejected;
 
 
-}
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return Collections.singleton(new SimpleGrantedAuthority(role.add()));
+//    }
+
+
