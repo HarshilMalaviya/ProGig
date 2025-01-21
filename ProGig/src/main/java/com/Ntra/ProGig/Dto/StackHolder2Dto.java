@@ -10,11 +10,13 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class StackHolder2Dto {
+
     private String firstname;
     private String lastname;
     private String username;
     private String email;
     private long contact;
+
     private Role role;
 
 }
