@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
+
 public interface StakHolderRepo extends JpaRepository<StakHolder,Integer> {
     @Override
     Optional<StakHolder> findById(Integer Id);

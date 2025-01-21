@@ -28,7 +28,7 @@ public class FreelancerService {
     public List<UserDto> getAllFreelancer(){
 
         try {
-            List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+            List<User> users =this.repo.findAllByRole(UserRole.valueOf("FREELANCER"));
             List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
             return userDtos;
         }catch (NoContentException e){

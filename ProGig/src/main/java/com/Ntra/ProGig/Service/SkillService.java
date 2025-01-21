@@ -77,7 +77,7 @@ public class SkillService {
         return skillsDto;
     }
 
-    private Skills DtoToSkills(SkillsDto skillsDto) {
+    private Skills  DtoToSkills(SkillsDto skillsDto) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Skills skills = new Skills();
         skills = new ModelMapper().map(skillsDto, Skills.class);
