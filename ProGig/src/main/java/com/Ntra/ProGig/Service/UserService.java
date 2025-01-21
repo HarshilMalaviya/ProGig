@@ -1,6 +1,7 @@
 package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.UserDto;
+import com.Ntra.ProGig.Entity.Skills;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Exception.NoContentException;
@@ -10,6 +11,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +25,12 @@ public class UserService {
 
     public List<UserDto> getAllUser(){
         try {
-            List<User> users =this.repo.findAll();
-            List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
-            return userDtos;
-        }catch (NoContentException e){
-            throw new NoContentException("No_Content");
+            List<User> users = this.repo.findAll();
+
+            return users.stream().map(this::UserToDto).toList();
+        }
+        catch (NoContentException e){
+            throw  new NoContentException("Data is not present");
         }
     }
 

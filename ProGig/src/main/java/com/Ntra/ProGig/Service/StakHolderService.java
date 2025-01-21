@@ -47,7 +47,9 @@ public class StakHolderService {
   }
   public StakHolder EditeUser (StackHolder2Dto stackHolderDTO){
 
-    StakHolder user=userRepo.findByUsername((stackHolderDTO.getUsername())).orElseThrow(()->new UserNotFoundException("User not Present"));
+
+    StakHolder user=userRepo.findByUsername(stackHolderDTO.getUsername()).orElseThrow(()->new UserNotFoundException("User not Present"));
+
     StackHolder2Dto exsistingUser = new StackHolder2Dto();
     exsistingUser.setLastname(stackHolderDTO.getLastname());
     exsistingUser.setFirstname(stackHolderDTO.getFirstname());
@@ -55,7 +57,7 @@ public class StakHolderService {
     exsistingUser.setEmail(stackHolderDTO.getEmail());
     exsistingUser.setRole(stackHolderDTO.getRole());
     exsistingUser.setContact(stackHolderDTO.getContact());
-    return this.StackDTOtoEntity(exsistingUser);
+    return this.userRepo.save(this.StackDTOtoEntity(exsistingUser));
 
   }
 

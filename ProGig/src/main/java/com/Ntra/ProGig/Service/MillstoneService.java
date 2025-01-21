@@ -21,11 +21,15 @@ public class MillstoneService {
     private ModelMapper modelMapper;
 
     public List<MillstoneDto> findAllMilestone() {
-        try {
-            List<Millstone> millstones = repo.findAll();
-            return millstones.stream().map(this::MillstoneToDto).toList();
-        } catch (NoContentException e) {
+        List<Millstone> millstones = repo.findAll();
+
+        if(millstones.isEmpty()){
             throw new NoContentException("Milestone data is not present");
+
+        } else{
+//            throw new NoContentException("Milestone data is not present");
+            return millstones.stream().map(this::MillstoneToDto).toList();
+
         }
     }
 

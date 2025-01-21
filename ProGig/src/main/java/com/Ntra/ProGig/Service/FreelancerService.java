@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.Ntra.ProGig.Entity.UserRole.FREELANCER;
+
 @Service
 public class FreelancerService {
     @Autowired
@@ -24,6 +26,7 @@ public class FreelancerService {
     private ModelMapper modelMapper;
 
     public List<UserDto> getAllFreelancer(){
+
         try {
             List<User> users =this.repo.findAllByRole(UserRole.valueOf("FREELANCER"));
             List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
@@ -33,14 +36,16 @@ public class FreelancerService {
         }
     }
 
+
     public Integer freelancerCount(){
-        List<User> users =this.repo.findAllByRole(UserRole.FREELANCER);
+        List<User> users =this.repo.findAllByRole(FREELANCER);
         List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
         return userDtos.size();
     }
 
 
     public UserDto getFreelancerByUsername(String username){
+
         try {
             User users =this.repo.findByUsernameAndRole(username,UserRole.FREELANCER);
             UserDto userDtos = this.UserToDto(users);
@@ -70,6 +75,7 @@ public class FreelancerService {
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("ID_Not_Found");
         }
+
     }
 
     public String deleteFreelancer(Integer id){
