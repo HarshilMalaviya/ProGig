@@ -2,7 +2,7 @@ FROM openjdk:21
 WORKDIR /app
 
 
-COPY target/ProGig-0.0.1-SNAPSHOT.jar /app/ProGig.jar
+COPY ProGig/target/ProGig-0.0.1-SNAPSHOT.jar /app/ProGig.jar
 
 EXPOSE 8080
 
