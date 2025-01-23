@@ -59,10 +59,10 @@ public class SecurityConfig {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
 
             "/swagger-ui/**",
-            "/webjars/**","/api-docs/**"
+            "/webjars/**","/api-docs/**","/Users/**"
     };
     private static final String[] Private_URL={
-            "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
+            "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
             "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
             "/freelancerCount"
             ,"/clientCount"
