@@ -90,29 +90,6 @@ public class ClientService {
 
     }
 
-    public User acceptClient(Integer id){
-        Optional<User> client= this.repo.findById(id);
-        if (client.isPresent()){
-            User user = client.get();
-            UserDto userDto = this.UserToDto(user);
-            userDto.setStatus("ACCEPTED");
-            return this.DtoToUser(userDto);
-        }
-        return null;
-    }
-
-    public User rejectClient(Integer id,String description){
-        Optional<User> client = this.repo.findById(id);
-        if (client.isPresent()){
-            User user = client.get();
-            UserDto userDto = this.UserToDto(user);
-            userDto.setStatus("REJECTED");
-            userDto.setWhyRejected(description);
-            return this.DtoToUser(userDto);
-        }
-        return null;
-    }
-
     private UserDto UserToDto(User user){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         UserDto userDto = new UserDto();

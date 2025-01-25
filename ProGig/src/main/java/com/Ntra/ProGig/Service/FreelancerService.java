@@ -28,9 +28,8 @@ public class FreelancerService {
     public List<UserDto> getAllFreelancer(){
 
         try {
-            List<User> users =this.repo.findAllByRole(UserRole.valueOf("FREELANCER"));
-            List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
-            return userDtos;
+            List<User> users =repo.findAllByRole(FREELANCER);
+            return users.stream().map(this::UserToDto).toList();
         }catch (NoContentException e){
             throw new NoContentException("No_Content");
         }
@@ -87,28 +86,6 @@ public class FreelancerService {
         }
     }
 
-    public User acceptFreelancer(Integer id){
-        Optional<User> freelancer= this.repo.findById(id);
-        if (freelancer.isPresent()){
-            User user = freelancer.get();
-            UserDto userDto = this.UserToDto(user);
-            userDto.setStatus("ACCEPTED");
-            return this.DtoToUser(userDto);
-        }
-        return null;
-    }
-
-    public User rejectFreelancer(Integer id,String description){
-        Optional<User> freelancer= this.repo.findById(id);
-        if (freelancer.isPresent()){
-            User user = freelancer.get();
-            UserDto userDto = this.UserToDto(user);
-            userDto.setStatus("REJECTED");
-            userDto.setWhyRejected(description);
-            return this.DtoToUser(userDto);
-        }
-        return null;
-    }
 
     private UserDto UserToDto(User user){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
