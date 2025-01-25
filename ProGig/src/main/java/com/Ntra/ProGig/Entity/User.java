@@ -28,6 +28,8 @@ public class User{
 
     private String lastName;
 
+    private Integer phone;
+
     private String email;
 
     private String username;
@@ -39,7 +41,7 @@ public class User{
     private String description;
 
     @Enumerated(value = EnumType.STRING)
-    private List<UserRole> role;
+    private UserRole role;
 
     private String status;
 

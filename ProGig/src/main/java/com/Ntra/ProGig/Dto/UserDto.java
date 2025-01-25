@@ -16,6 +16,8 @@ public class UserDto {
 
     private String lastName;
 
+    private Integer phone;
+
     private String email;
 
     private String username;
@@ -25,7 +27,7 @@ public class UserDto {
     private List<String> skills;
 
     private String description;
-    @Enumerated(value = EnumType.STRING)
+
     private UserRole role;
 
     private String status;

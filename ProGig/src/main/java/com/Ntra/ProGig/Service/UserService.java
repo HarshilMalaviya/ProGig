@@ -2,15 +2,16 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +26,7 @@ public class UserService {
     public List<UserDto> getAllUser(){
         try {
             List<User> users =this.repo.findAll();
-            List<UserDto> userDtos = users.stream().map(user -> this.UserToDto(user)).collect(Collectors.toList());
+            List<UserDto> userDtos = users.stream().map(this::UserToDto).collect(Collectors.toList());
             return userDtos;
         }catch (NoContentException e){
             throw new NoContentException("No_Content");
@@ -46,6 +47,42 @@ public class UserService {
         return createUser;
     }
 
+    public User acceptUser(String username){
+        Optional<User> freelancer= this.repo.findByUsername(username);
+        if (freelancer.isPresent()){
+            User user = freelancer.get();
+            UserDto userDto = this.UserToDto(user);
+            userDto.setStatus("ACCEPTED✅");
+            return this.repo.save(DtoToUser(userDto));
+        }
+        return null;
+    }
+
+    public User rejectUser(String username,String description){
+        Optional<User> freelancer= this.repo.findByUsername(username);
+        if (freelancer.isPresent()){
+            User user = freelancer.get();
+            UserDto userDto = this.UserToDto(user);
+            userDto.setStatus("REJECTED❌");
+            userDto.setWhyRejected(description);
+            return this.repo.save(DtoToUser(userDto));
+        }
+        return null;
+    }
+
+    public UserDto getUserByUsername(String username){
+
+        try {
+            Optional<User> users =this.repo.findByUsername(username);
+            UserDto userDtos = this.UserToDto(users.orElse(null));
+            return userDtos;
+        }catch (UsernameNotFoundException e){
+            throw new UsernameNotFoundException("There is No such User");
+        }
+
+    }
+
+
     private UserDto UserToDto(User user){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         UserDto userDto = new UserDto();
@@ -59,4 +96,5 @@ public class UserService {
         user = new ModelMapper().map(userDto,User.class);
         return user;
     }
+
 }
