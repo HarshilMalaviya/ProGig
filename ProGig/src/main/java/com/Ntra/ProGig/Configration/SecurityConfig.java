@@ -42,7 +42,7 @@ public class SecurityConfig {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source. registerCorsConfiguration( "/*", config);
 //        return new CorsFilter (source);
-//    }
+////    }
 //    @Bean
 //    public CorsFilter corsFilter() {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -62,10 +62,10 @@ public class SecurityConfig {
             "/webjars/**","/api-docs/**"
     };
     private static final String[] Private_URL={
-            "/register/**","/Users/**","/users/{id}/**","/update/**","/delet/{id}/**",
-            "/Skills/**","/jobs/**","/freelancer/**","/clients/**","/Transaction/**","/proposals/**",
-            "/freelancerCount"
-            ,"/clientCount"
+            "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
+            "/Skills/**","/jobs/**","/clients/**","/Transaction/**","/proposals/**",
+            "/freelancerCount","/contract/**","/Invoice/**","/millstone/**"
+            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

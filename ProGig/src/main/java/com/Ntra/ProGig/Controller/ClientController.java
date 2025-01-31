@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin("http://192.168.1.16:5173/**")
 public class ClientController {
 
     @Autowired
@@ -52,16 +53,5 @@ public class ClientController {
 
 
 
-    @PostMapping("/{id}/accept")
-    public ResponseEntity<User> acceptClient(@PathVariable Integer id) {
-        User acceptedClient = clientService.acceptClient(id);
-        return acceptedClient != null ? ResponseEntity.ok(acceptedClient) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/{id}/reject")
-    public ResponseEntity<User> rejectClient(@PathVariable Integer id, @RequestBody String description) {
-        User rejectedClient = clientService.rejectClient(id, description);
-        return rejectedClient != null ? ResponseEntity.ok(rejectedClient) : ResponseEntity.notFound().build();
-    }
 }
 

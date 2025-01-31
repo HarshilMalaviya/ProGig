@@ -4,6 +4,7 @@ import com.Ntra.ProGig.Dto.TransactionDto;
 import com.Ntra.ProGig.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Transaction")
+@CrossOrigin("http://192.168.1.16:5173/**")
 public class TransactionController {
     @Autowired
     private TransactionService service;

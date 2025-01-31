@@ -13,14 +13,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/freelancer")
+@CrossOrigin("http://192.168.1.16:5173/**")
 public class FreelancerController {
 
     @Autowired
     private FreelancerService service;
 
     @GetMapping("/getAllFreelancer")
-    public ResponseEntity<List<UserDto>> getAllFreelancer(){
-        return ResponseEntity.ok(this.service.getAllFreelancer());
+    public List<UserDto> getAllFreelancer(){
+        return service.getAllFreelancer();
     }
 
     @GetMapping("/getFreelancerByUsername/{username}")
@@ -54,17 +55,6 @@ public class FreelancerController {
 
 
 
-    @PostMapping("/{id}/accept")
-    public ResponseEntity<User> acceptFreelancer(@PathVariable Integer id) {
-        User acceptedFreelancer = service.acceptFreelancer(id);
-        return acceptedFreelancer != null ? ResponseEntity.ok(acceptedFreelancer) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/{id}/reject")
-    public ResponseEntity<User> rejectFreelancer(@PathVariable Integer id, @RequestBody String description) {
-        User rejectedFreelancer = service.rejectFreelancer(id, description);
-        return rejectedFreelancer != null ? ResponseEntity.ok(rejectedFreelancer) : ResponseEntity.notFound().build();
-    }
 
 
 

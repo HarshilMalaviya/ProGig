@@ -54,7 +54,7 @@ public class AuthService {
         stackHolderDTO.setEmail(request.getEmail());
         stackHolderDTO.setRole(request.getRole());
         stackHolderDTO.setPassword(passwordEncoder.encode(request.getPassword()));
-        String token = jwtService.generateToken(this.StackDTOtoEntity(stackHolderDTO));
+        String token = jwtService.generateToken(userRepo.save(StackDTOtoEntity(stackHolderDTO)));
         return new AuthenticationResponse(token);
     }
 

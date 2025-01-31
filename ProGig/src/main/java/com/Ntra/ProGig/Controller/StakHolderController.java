@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-
+@CrossOrigin("http://192.168.1.16:5173/**")
 
 public class StakHolderController {
     private final StakHolderService userService;
