@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("http://192.168.0.168:5173/**")
 @RequestMapping("/Skills")
 public class SkillController {
     private final SkillService skillService;

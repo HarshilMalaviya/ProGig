@@ -2,15 +2,15 @@ package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.User;
-import com.Ntra.ProGig.Service.FreelancerService;
 import com.Ntra.ProGig.Service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.0.168:5173/**")
 @RestController
 @RequestMapping("/user_api")
 public class UserController {
@@ -29,13 +29,13 @@ public class UserController {
     }
 
     @PostMapping("/reject/{username}")
-    public ResponseEntity<User> rejectFreelancer(@PathVariable String username, @RequestBody String description) {
+    public ResponseEntity<User> rejectFreelancer(@PathVariable String username, @RequestBody String description) throws JsonProcessingException {
         User rejectedFreelancer = service.rejectUser(username, description);
         return rejectedFreelancer != null ? ResponseEntity.ok(rejectedFreelancer) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/getUserByUsername/{username}")
-    public ResponseEntity<UserDto> getFreelancerByUsername(@PathVariable("username") String username){
+    public ResponseEntity<UserDto> getFreelancerByUsername(@PathVariable String username){
         return ResponseEntity.ok(this.service.getUserByUsername(username));
     }
 

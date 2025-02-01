@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
+
 import com.Ntra.ProGig.Dto.StackHolder2Dto;
-import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.StakHolderService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-
+@CrossOrigin("http://192.168.0.168:5173/**")
 
 public class StakHolderController {
     private final StakHolderService userService;

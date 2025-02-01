@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class  JwtService {
     public String generateToken(LoginDTO user) {
         String token = Jwts
                 .builder()

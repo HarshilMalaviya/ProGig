@@ -7,13 +7,14 @@ import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-
+@CrossOrigin("http://192.168.254.250:5173/**")
 public class AutheController {
 
     private final AuthService authService;

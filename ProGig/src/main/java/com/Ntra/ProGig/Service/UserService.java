@@ -4,6 +4,9 @@ import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.UserRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,6 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepo repo;
-
-
     @Autowired
     private ModelMapper modelMapper;
 
@@ -53,19 +54,23 @@ public class UserService {
             User user = freelancer.get();
             UserDto userDto = this.UserToDto(user);
             userDto.setStatus("ACCEPTED✅");
+            userDto.setWhyRejected(null);
             return this.repo.save(DtoToUser(userDto));
         }
+
         return null;
     }
 
-    public User rejectUser(String username,String description){
+    public User rejectUser(String username,String description) throws JsonProcessingException {
         Optional<User> freelancer= this.repo.findByUsername(username);
         if (freelancer.isPresent()){
             User user = freelancer.get();
             UserDto userDto = this.UserToDto(user);
             userDto.setStatus("REJECTED❌");
-            userDto.setWhyRejected(description);
-            return this.repo.save(DtoToUser(userDto));
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(description);
+            userDto.setWhyRejected(jsonNode.get("rejectionReason").asText());
+            return repo.save(DtoToUser(userDto));
         }
         return null;
     }
