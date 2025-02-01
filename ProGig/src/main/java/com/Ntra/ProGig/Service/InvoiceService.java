@@ -24,7 +24,8 @@ public class InvoiceService {
 
     public Invoice saveInvoice (InvoiceDto invoiceDto){
 
-        return this.DtoToInvoice(invoiceDto);
+        return invoiceRepo.save(DtoToInvoice(invoiceDto));
+
 
     }
     public List<InvoiceDto> getAllInvoice (){

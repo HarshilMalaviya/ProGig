@@ -14,13 +14,13 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String ClientCompanyName;
-    private String ClientName;
-    private String FreelancerName;
-    private String FreelancerIdProof;
-    private String MilestoneTitle;
-    private long MilestonePaymentAmount;
-    private long PortalCommission;
+    private String clientCompanyName;
+    private String clientName;
+    private String freelancerName;
+    private String freelancerIdProof;
+    private String milestoneTitle;
+    private long milestonePaymentAmount;
+    private long portalCommission;
     @CreatedDate
     @Temporal(TemporalType.DATE)
     private Date date;

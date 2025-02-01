@@ -4,15 +4,13 @@ import com.Ntra.ProGig.Dto.MillstoneDto;
 import com.Ntra.ProGig.Service.MillstoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/millstone")
+@CrossOrigin("http://192.168.1.16:5173/**")
 public class MillstoneController {
     @Autowired
     private MillstoneService service;
