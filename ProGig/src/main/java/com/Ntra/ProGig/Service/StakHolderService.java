@@ -57,7 +57,7 @@ public class StakHolderService {
     exsistingUser.setEmail(stackHolderDTO.getEmail());
     exsistingUser.setRole(stackHolderDTO.getRole());
     exsistingUser.setContact(stackHolderDTO.getContact());
-    return this.StackDTOtoEntity(exsistingUser);
+    return this.userRepo.save(this.StackDTOtoEntity(exsistingUser));
 
   }
 

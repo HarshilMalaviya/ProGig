@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +54,8 @@ public class SkillService {
     }
 
 
-    public void deletebyid(int id) {
+    public void deletebyName(String skillName) {
+        int id = this.skillRepo.findBySkillName(skillName).get().getId();
 
         skillRepo.deleteById(id);
         throw new OkStatus("Skill Successfully Deleted");

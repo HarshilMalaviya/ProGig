@@ -113,7 +113,7 @@ public class JobsService {
         jobDto.setProviders_email(jobs.getProviders_email());
         jobDto.setProviders_name(jobs.getProviders_name());
 
-        return this.DtoToJob(jobDto);
+        return this.jobRepo.save(DtoToJob(jobDto));
     }
 
     private JobDto JobToDto(Jobs jobs){

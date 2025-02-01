@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Configration;
 
+import com.Ntra.ProGig.Entity.Role;
 import com.Ntra.ProGig.Filter.JwtAuthFilter;
 import com.Ntra.ProGig.Service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class SecurityConfig {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source. registerCorsConfiguration( "/*", config);
 //        return new CorsFilter (source);
-//    }
+////    }
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -59,13 +60,13 @@ public class SecurityConfig {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
 
             "/swagger-ui/**",
-            "/webjars/**","/api-docs/**","/Users/**","/freelancer/**","/user_api/**"
+            "/webjars/**","/api-docs/**","/profile"
     };
     private static final String[] Private_URL={
             "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
             "/Skills/**","/jobs/**","/clients/**","/Transaction/**","/proposals/**",
-            "/freelancerCount"
-            ,"/clientCount"
+            "/freelancerCount","/contract/**","/Invoice/**","/millstone/**"
+            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -73,6 +74,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         Req->Req.requestMatchers(Public_URL)
                                 .permitAll()
+                                .requestMatchers("/update/**")
+                                .hasRole("SUPER_ADMIN")
                                 .requestMatchers(Private_URL)
                                 .authenticated()
 

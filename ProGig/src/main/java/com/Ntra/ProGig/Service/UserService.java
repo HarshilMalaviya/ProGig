@@ -67,9 +67,10 @@ public class UserService {
             User user = freelancer.get();
             UserDto userDto = this.UserToDto(user);
             userDto.setStatus("REJECTED❌");
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(description);
-            userDto.setWhyRejected(jsonNode.get("rejectionReason").asText());
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            JsonNode jsonNode = objectMapper.readTree(description);
+//            userDto.setWhyRejected(jsonNode.get("rejectionReason").asText());
+            userDto.setWhyRejected(description);
             return repo.save(DtoToUser(userDto));
         }
         return null;

@@ -1,13 +1,17 @@
 package com.Ntra.ProGig.Service;
 
+import com.Ntra.ProGig.Dto.JobDto;
 import com.Ntra.ProGig.Dto.ProposalsDto;
 import com.Ntra.ProGig.Entity.Proposals;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.ProposalRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProposalService {
@@ -24,6 +28,26 @@ public class ProposalService {
         } catch (UserNotFoundException e) {
             throw new UserNotFoundException("there is no proposal present");
         }
+    }
+
+    public Proposals EditeProposal(ProposalsDto proposalsDto){
+
+        Optional<Proposals> exsistingProposal = Optional.empty();
+        try {
+            exsistingProposal = repo.findById(proposalsDto.getId());
+        } catch (NoContentException e) {
+            throw new NoContentException("NO_SUCH_JOB");
+        }
+        ProposalsDto proposalsDto1 = this.ProposalsToDto(exsistingProposal.get());
+        proposalsDto1.setJobTitle(proposalsDto.getJobTitle());
+        proposalsDto1.setFreelancerName(proposalsDto.getFreelancerName());
+        proposalsDto1.setFreelancerEmail(proposalsDto.getFreelancerEmail());
+        proposalsDto1.setBid(proposalsDto.getBid());
+        proposalsDto1.setFinishingTime(proposalsDto.getFinishingTime());
+        proposalsDto1.setReview(proposalsDto.getReview());
+
+        return this.repo.save(this.DtoToProposals(proposalsDto1));
+
     }
 
     private ProposalsDto ProposalsToDto(Proposals proposals){
