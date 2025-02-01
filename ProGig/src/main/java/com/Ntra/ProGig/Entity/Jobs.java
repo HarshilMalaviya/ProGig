@@ -22,4 +22,5 @@ public class Jobs {
     private String providers_name;
     private String providers_email;
 
+
 }

@@ -13,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "Transaction")
 public class Transaction {
+
+//    it has all payment details like invoces , complete payment for project etc
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

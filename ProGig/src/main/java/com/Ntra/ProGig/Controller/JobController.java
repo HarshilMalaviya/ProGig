@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.254.250:5173/**")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path="/jobs",produces = {MediaType.APPLICATION_JSON_VALUE})

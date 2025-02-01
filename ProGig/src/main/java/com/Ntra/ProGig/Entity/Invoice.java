@@ -11,6 +11,9 @@ import java.sql.Date;
 @Data
 @Table(name = "Invoice")
 public class Invoice {
+
+    //each payment detail will be stored in this table; by millstone vise or totale payment
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

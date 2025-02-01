@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.254.250:5173/**")
 @RequestMapping("/Invoice")
 public class InvoiceController {
     @Autowired

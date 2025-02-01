@@ -43,23 +43,23 @@ public class SecurityConfig {
 //        source. registerCorsConfiguration( "/*", config);
 //        return new CorsFilter (source);
 ////    }
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedOriginPattern("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-//    }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
 
     private static final String[] Public_URL= {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
 
             "/swagger-ui/**",
-            "/webjars/**","/api-docs/**"
+            "/webjars/**","/api-docs/**","/Login/**"
     };
     private static final String[] Private_URL={
             "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
