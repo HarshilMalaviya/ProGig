@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin("http://192.168.254.250:5174/**")
+@CrossOrigin("http://192.168.0.168:5173/**")
 public class AutheController {
 
     private final AuthService authService;

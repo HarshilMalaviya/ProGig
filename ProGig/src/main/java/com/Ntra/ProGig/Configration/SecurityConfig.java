@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Configration;
 
+import com.Ntra.ProGig.Entity.Role;
 import com.Ntra.ProGig.Filter.JwtAuthFilter;
 import com.Ntra.ProGig.Service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +60,7 @@ public class SecurityConfig {
             "/Login/**", "/v3/api-docs", "/v2/api-docs","/swagger-resources/**",
 
             "/swagger-ui/**",
-            "/webjars/**","/api-docs/**","/Login/**"
+            "/webjars/**","/api-docs/**","/profile"
     };
     private static final String[] Private_URL={
             "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
@@ -73,6 +74,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         Req->Req.requestMatchers(Public_URL)
                                 .permitAll()
+                                .requestMatchers("/update/**")
+                                .hasRole("SUPER_ADMIN")
                                 .requestMatchers(Private_URL)
                                 .authenticated()
 

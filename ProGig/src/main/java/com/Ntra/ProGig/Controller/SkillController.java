@@ -13,8 +13,9 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("http://192.168.0.168:5173/**")
 @RequestMapping("/Skills")
-@CrossOrigin("http://192.168.254.250:5173/**")
+//@CrossOrigin("http://192.168.1.16:5173/**")
 public class SkillController {
     private final SkillService skillService;
     @GetMapping("/Count")
@@ -50,9 +51,9 @@ public class SkillController {
         Skills skills = skillService.EditeSkills(skillsDto);
         return ResponseEntity.of(Optional.of(skills));
     }
-    @DeleteMapping("/deletskill/{id}")
-    public ResponseEntity<Void> deleteSkill(@PathVariable int id){
-        skillService.deletebyid(id);
+    @DeleteMapping("/deletskill/{name}")
+    public ResponseEntity<Void> deleteSkill(@PathVariable String name){
+        skillService.deletebyName(name);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
