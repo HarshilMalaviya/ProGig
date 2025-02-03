@@ -1,7 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
+
 import com.Ntra.ProGig.Dto.StackHolder2Dto;
-import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.StakHolder;
 import com.Ntra.ProGig.Service.StakHolderService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.0.168:5173/**")
 
 public class StakHolderController {
     private final StakHolderService userService;
@@ -44,7 +44,7 @@ public class StakHolderController {
 //        }
         return user;
     }
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<StakHolder> EditeUser(@RequestBody StackHolder2Dto user1) {
         StakHolder user= userService.EditeUser(user1);
          return ResponseEntity.of(Optional.of(user));

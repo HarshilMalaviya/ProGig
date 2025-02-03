@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin("http://192.168.254.250:5173/**")
 @RequestMapping("/millstone")
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.0.168:5173/**")
 public class MillstoneController {
     @Autowired
     private MillstoneService service;

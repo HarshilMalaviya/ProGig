@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Transaction")
-@CrossOrigin("http://192.168.1.16:5173/**")
+@CrossOrigin("http://192.168.0.168:5173/**")
 public class TransactionController {
     @Autowired
     private TransactionService service;
