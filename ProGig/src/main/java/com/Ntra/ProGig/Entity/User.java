@@ -1,6 +1,7 @@
 package com.Ntra.ProGig.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,10 +48,9 @@ public class User{
 
     private String whyRejected;
 
+    @OneToOne( cascade = CascadeType.ALL)
+    private Profile profile;
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return Collections.singleton(new SimpleGrantedAuthority(role.add()));
     }
 
 

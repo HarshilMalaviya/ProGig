@@ -5,14 +5,13 @@ import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Repository.UserRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,6 +88,38 @@ public class UserService {
     }
 
 
+    public List<UserDto> searchJobs(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList(); // Return an empty list if the keyword is null or empty
+        }
+        List<User> users = repo.search(keyword);
+        List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
+        return userDtos;
+    }
+
+    public User updateUser(UserDto user, int id) {
+
+        Optional<User> exsistingStackHolder = null;
+        try {
+            exsistingStackHolder = repo.findById(id);
+        } catch (NoContentException e) {
+            throw new NoContentException("NO_SUCH_STACKHOLDER");
+        }
+
+        UserDto exsistingUser = new UserDto();
+        exsistingUser.setId(id);
+        exsistingUser.setLastName(user.getLastName());
+        exsistingUser.setFirstName(user.getFirstName());
+        exsistingUser.setPhone(user.getPhone());
+        exsistingUser.setEmail(user.getEmail());
+        exsistingUser.setUsername(user.getUsername());
+        exsistingUser.setSkills(user.getSkills());
+        exsistingUser.setDescription(user.getDescription());
+        exsistingUser.setRole(user.getRole());
+        return repo.save(DtoToUser(exsistingUser));
+
+    }
+
     private UserDto UserToDto(User user){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         UserDto userDto = new UserDto();
@@ -103,4 +134,7 @@ public class UserService {
         return user;
     }
 
+    public void deleteUser(int id) {
+        repo.deleteById(id);
+    }
 }

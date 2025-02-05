@@ -17,16 +17,16 @@ public class ProfileController {
     private  final ProfileService profileService;
 
 
-    @PostMapping
+    @PostMapping("/addProfile")
     public Profile saveProfile(@RequestBody ProfileDto profile) {
         return profileService.saveProfile(profile);
     }
 
-    @GetMapping
+    @GetMapping("/getProfile")
     public List<ProfileDto> getProfile() {
         return profileService.getProfile();
     }
-    @PutMapping
+    @PutMapping("/editProfile")
     public Profile editProfile(@RequestBody ProfileDto profileDto) {
         return profileService.editProfile(profileDto);
     }

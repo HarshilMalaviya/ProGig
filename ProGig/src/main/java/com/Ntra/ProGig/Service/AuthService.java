@@ -35,17 +35,15 @@ public class AuthService {
                         request.getPassword()
                 )
         );
-        StakHolder user=userRepo.findByUsername(request.getUsername()).orElseThrow(()->new UserNotFoundException("user is not there")) ;
+        StakHolder user=userRepo.findByUsername(request.getUsername());
 
         String token = jwtService.generateToken(user);
         return new AuthenticationResponse(token);
     }
 
     public AuthenticationResponse register(StackHolderDTO request)  {
-        Optional<StakHolder> existingUser = userRepo.findByUsername(request.getUsername());
-        if(existingUser.isPresent()){
-            throw new UserAlreadyExistsException("StakHolder already exists with username: " + request.getUsername());
-        }
+        StakHolder existingUser = userRepo.findByUsername(request.getUsername());
+        if(existingUser != null) throw new UserAlreadyExistsException("User Already Exist");
         StackHolderDTO stackHolderDTO=new StackHolderDTO();
         stackHolderDTO.setFirstname(request.getFirstname());
         stackHolderDTO.setLastname(request.getLastname());

@@ -62,21 +62,20 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/webjars/**","/api-docs/**","/profile"
     };
-    private static final String[] Private_URL={
-            "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
-            "/Skills/**","/jobs/**","/clients/**","/Transaction/**","/proposals/**",
-            "/freelancerCount","/contract/**","/Invoice/**","/millstone/**"
-            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**"
-    };
+//    private static final String[] Private_URL={
+//            "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
+//            "/Skills/**","/jobs/**","/clients/**","/Transaction/**","/proposals/**",
+//            "/freelancerCount","/contract/**","/Invoice/**","/millstone/**"
+//            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**"
+//    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         Req->Req.requestMatchers(Public_URL)
                                 .permitAll()
-                                .requestMatchers("/update/**")
-                                .hasRole("SUPER_ADMIN")
-                                .requestMatchers(Private_URL)
+                                .requestMatchers("/update/**").hasAuthority("SUPER_ADMIN")
+                                /*.requestMatchers(Private_URL)*/.anyRequest()
                                 .authenticated()
 
                 ).userDetailsService(userService)

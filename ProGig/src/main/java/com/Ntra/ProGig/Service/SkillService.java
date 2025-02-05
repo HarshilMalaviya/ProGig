@@ -54,20 +54,19 @@ public class SkillService {
     }
 
 
-    public void deletebyName(String skillName) {
-        int id = this.skillRepo.findBySkillName(skillName).get().getId();
-
+    public void deletebyName(int id) {
         skillRepo.deleteById(id);
         throw new OkStatus("Skill Successfully Deleted");
     }
 
 
-    public Skills EditeSkills (SkillsDto skillsDto){
-        Skills skills = this.skillRepo.findById(this.DtoToSkills(skillsDto).getId()).orElseThrow(()->new UserNotFoundException("Skill not found"));
+    public Skills EditeSkills (SkillsDto skillsDto,int id){
+        Skills skills = this.skillRepo.findById(id).orElseThrow(()->new UserNotFoundException("Skill not found"));
         SkillsDto existiogSkillsDto = new SkillsDto();
+        existiogSkillsDto.setId(id);
         existiogSkillsDto.setSkillName(skillsDto.getSkillName());
 
-        return this.DtoToSkills(existiogSkillsDto);
+        return this.skillRepo.save(DtoToSkills(existiogSkillsDto));
     }
 
     private SkillsDto SkillsToDto(Skills skills){

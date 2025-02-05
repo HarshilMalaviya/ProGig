@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class StackHolder2Dto {
-
+    private int id;
     private String firstname;
     private String lastname;
     private String username;

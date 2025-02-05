@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://192.168.0.168:5173/**")
+
 @RequestMapping("/proposals")
 //@CrossOrigin("http://192.168.254.250:5173/**")
 public class ProposalController {
