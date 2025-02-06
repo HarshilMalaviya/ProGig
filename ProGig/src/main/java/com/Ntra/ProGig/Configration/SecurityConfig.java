@@ -66,7 +66,7 @@ public class SecurityConfig {
             "/register/**","/users/{id}/**","/update/**","/delet/{id}/**",
             "/Skills/**","/jobs/**","/clients/**","/Transaction/**","/proposals/**",
             "/freelancerCount","/contract/**","/Invoice/**","/millstone/**"
-            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**"
+            ,"/clientCount","/Users/**","/freelancer/**","/user_api/**","/stackHolder/**"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -75,7 +75,7 @@ public class SecurityConfig {
                         Req->Req.requestMatchers(Public_URL)
                                 .permitAll()
                                 .requestMatchers("/update/**")
-                                .hasRole("SUPER_ADMIN")
+                                .hasAuthority("SUPER_ADMIN")
                                 .requestMatchers(Private_URL)
                                 .authenticated()
 

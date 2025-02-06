@@ -14,12 +14,5 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new BasicIntercepter());
     }
 
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/")
-                .allowedOrigins("http://192.168.31.177:5173/**") // Add frontend URL here
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true);
-    }
 
 }

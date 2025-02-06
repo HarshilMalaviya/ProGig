@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin("http://192.168.0.168:5173/**")
+@RequestMapping("/stackHolder")
 
 public class StakHolderController {
     private final StakHolderService userService;

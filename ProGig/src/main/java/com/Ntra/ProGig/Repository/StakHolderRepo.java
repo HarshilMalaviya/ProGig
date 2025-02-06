@@ -11,5 +11,8 @@ public interface StakHolderRepo extends JpaRepository<StakHolder,Integer> {
     @Override
     Optional<StakHolder> findById(Integer Id);
 
+
    Optional <StakHolder>findByUsername(String Username);
+
+
 }
