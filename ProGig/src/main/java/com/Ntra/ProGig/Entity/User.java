@@ -29,7 +29,7 @@ public class User{
 
     private String lastName;
 
-    private Integer phone;
+    private Long phone;
 
     private String email;
 

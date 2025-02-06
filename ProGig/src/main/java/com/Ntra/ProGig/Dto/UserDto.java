@@ -19,7 +19,7 @@ public class UserDto {
 
     private String lastName;
 
-    private Integer phone;
+    private Long phone;
 
     private String email;
 

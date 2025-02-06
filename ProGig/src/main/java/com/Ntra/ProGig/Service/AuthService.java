@@ -3,19 +3,21 @@ package com.Ntra.ProGig.Service;
 import com.Ntra.ProGig.Dto.LoginDTO;
 import com.Ntra.ProGig.Dto.StackHolderDTO;
 import com.Ntra.ProGig.Entity.AuthenticationResponse;
+import com.Ntra.ProGig.Entity.Role;
 import com.Ntra.ProGig.Entity.StakHolder;
+import com.Ntra.ProGig.Exception.SecurityException;
 import com.Ntra.ProGig.Exception.UserAlreadyExistsException;
-import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 
 @Service
@@ -41,20 +43,51 @@ public class AuthService {
         return new AuthenticationResponse(token);
     }
 
-    public AuthenticationResponse register(StackHolderDTO request)  {
-        StakHolder existingUser = userRepo.findByUsername(request.getUsername());
-        if(existingUser != null) throw new UserAlreadyExistsException("User Already Exist");
-        StackHolderDTO stackHolderDTO=new StackHolderDTO();
-        stackHolderDTO.setFirstname(request.getFirstname());
-        stackHolderDTO.setLastname(request.getLastname());
-        stackHolderDTO.setUsername(request.getUsername());
-        stackHolderDTO.setContact(request.getContact());
-        stackHolderDTO.setEmail(request.getEmail());
-        stackHolderDTO.setRole(request.getRole());
-        stackHolderDTO.setPassword(passwordEncoder.encode(request.getPassword()));
-        String token = jwtService.generateToken(userRepo.save(StackDTOtoEntity(stackHolderDTO)));
+
+    public AuthenticationResponse register(StackHolderDTO request) {
+        // Get the logged-in user from SecurityContext
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!(principal instanceof UserDetails)) {
+            throw new SecurityException("Unauthorized access! No valid user found.");
+        }
+
+        String loggedInUsername = ((UserDetails) principal).getUsername();
+        StakHolder loggedInUserEntity = userRepo.findByUsername(loggedInUsername);
+
+        if (loggedInUserEntity == null) {
+            throw new SecurityException("Logged-in user not found!");
+        }
+
+        // Check if the username is already taken
+        if (userRepo.findByUsername(request.getUsername()) != null) {
+            throw new UserAlreadyExistsException("User already exists!");
+        }
+
+        // Role-based validation
+        if (request.getRole() == Role.SUPER_ADMIN) {
+            throw new SecurityException("Super Admin creation is not allowed!");
+        }
+
+        if (request.getRole() == Role.ADMIN && loggedInUserEntity.getRole() != Role.SUPER_ADMIN) {
+            throw new SecurityException("Only Super Admins can register Admins!");
+        }
+
+        if (request.getRole() == Role.EMPLOYEE && loggedInUserEntity.getRole() == Role.EMPLOYEE) {
+            throw new SecurityException("Employees cannot register new users!");
+        }
+
+        // Create new user
+        StakHolder newUser = modelMapper.map(request, StakHolder.class);
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // Save user & generate JWT token
+        String token = jwtService.generateToken(userRepo.save(newUser));
         return new AuthenticationResponse(token);
     }
+
+
+
 
     public LoginDTO EntityToDto(StakHolder stakHolder){
         LoginDTO loginDTO=new LoginDTO();
