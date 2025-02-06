@@ -16,5 +16,4 @@ public class BankDerails {
     private String accountNumber;
     private String ifscCode;
     private String bankName;
-    private String branchName;
 }

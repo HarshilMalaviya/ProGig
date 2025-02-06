@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Controller;
 
+import com.Ntra.ProGig.Dto.JobDto;
 import com.Ntra.ProGig.Dto.UserDto;
 import com.Ntra.ProGig.Entity.User;
 import com.Ntra.ProGig.Service.UserService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://192.168.0.168:5173/**")
+
 @RestController
 @RequestMapping("/user_api")
 public class UserController {
@@ -37,6 +38,23 @@ public class UserController {
     @GetMapping("/getUserByUsername/{username}")
     public ResponseEntity<UserDto> getFreelancerByUsername(@PathVariable String username){
         return ResponseEntity.ok(this.service.getUserByUsername(username));
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDto>> searchJobs(@RequestParam String keyword) {
+        List<UserDto> userDtos=service.searchJobs(keyword);
+        return ResponseEntity.ok(userDtos);
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody UserDto user,@PathVariable int id) {
+        User updatedUser = service.updateUser(user,id);
+        return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+        service.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

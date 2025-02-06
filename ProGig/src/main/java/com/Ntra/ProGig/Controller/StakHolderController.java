@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("http://192.168.0.168:5173/**")
-@RequestMapping("/stackHolder")
+@RequestMapping("/StackHolder")
+
 
 public class StakHolderController {
     private final StakHolderService userService;
@@ -34,9 +34,9 @@ public class StakHolderController {
     public int Count(){
         return userService.StackHolderCount();
     }
-    @GetMapping("/users/{id}")
-    public StackHolder2Dto findbyUserid(@PathVariable int id) {
-        StackHolder2Dto user=userService.getuserbyid(id);
+    @GetMapping("/users/{username}")
+    public StackHolder2Dto findbyUserid(@PathVariable String username){
+        StackHolder2Dto user=userService.getuserbyusername(username);
 //        if(user==null){
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 //        }
@@ -45,12 +45,12 @@ public class StakHolderController {
 //        }
         return user;
     }
-    @PutMapping("/update")
-    public ResponseEntity<StakHolder> EditeUser(@RequestBody StackHolder2Dto user1) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StakHolder> EditeUser(@RequestBody StackHolder2Dto user1, @PathVariable int id) {
         StakHolder user= userService.EditeUser(user1);
-         return ResponseEntity.of(Optional.of(user));
+         return ResponseEntity.ok(user);
     }
-    @DeleteMapping("/delet/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id){
          userService.deletebyid(id);
          return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

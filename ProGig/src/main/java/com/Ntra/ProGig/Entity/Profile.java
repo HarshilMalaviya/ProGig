@@ -16,7 +16,7 @@ public class Profile {
     private Integer id;
 //  freelancer + client basic profile
 
-//    private String Address;
+    private String Address;
 
     private Long zipCode;
 
@@ -25,9 +25,6 @@ public class Profile {
     private String State;
 
     private String Country;
-    //  Client detail
-    private String CompanyName;
-    private String Location;
 //    Add ON Info
 
     private String Experience;
@@ -36,14 +33,10 @@ public class Profile {
     private String Articles;
 
     private String Certification;
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_id")
     private BankDerails bank;
-//
-//    Aditional Section
-//    @Nullable
-//    private Review review;
-//    @Nullable
-//    private Portfolio portfolio;
 
 }

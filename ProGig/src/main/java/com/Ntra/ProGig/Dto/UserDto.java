@@ -1,8 +1,11 @@
 package com.Ntra.ProGig.Dto;
 
+import com.Ntra.ProGig.Entity.Profile;
 import com.Ntra.ProGig.Entity.UserRole;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 import java.util.List;
@@ -33,4 +36,7 @@ public class UserDto {
     private String status;
 
     private String whyRejected;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
 }

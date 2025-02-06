@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/freelancer")
-@CrossOrigin("http://192.168.1.16:5173/**")
+
 public class FreelancerController {
 
     @Autowired
