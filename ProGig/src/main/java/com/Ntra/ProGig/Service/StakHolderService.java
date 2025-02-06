@@ -2,6 +2,7 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.StackHolder2Dto;
 import com.Ntra.ProGig.Entity.StakHolder;
+import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Exception.OkStatus;
 import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.StakHolderRepo;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +38,9 @@ public class StakHolderService {
       throw new UsernameNotFoundException("There is no StackHolder");
     }
   }
-  public StackHolder2Dto getuserbyid(int id)
+  public StackHolder2Dto getuserbyusername(String username)
   {
-    StakHolder stakHolder = this.userRepo.findById(id).orElseThrow(()->new UserNotFoundException("THERE IS NO USER ID :"+id));
+    StakHolder stakHolder = this.userRepo.findByUsername(username);
     return this.EntityToStackeDto(stakHolder);
   }
   public Void deletebyid(int id){
@@ -47,17 +49,22 @@ public class StakHolderService {
   }
   public StakHolder EditeUser (StackHolder2Dto stackHolderDTO){
 
-
-    StakHolder user=userRepo.findByUsername(stackHolderDTO.getUsername()).orElseThrow(()->new UserNotFoundException("User not Present"));
+    Optional<StakHolder> exsistingStackHolder = null;
+    try {
+      exsistingStackHolder = userRepo.findById(stackHolderDTO.getId());
+    } catch (NoContentException e) {
+      throw new NoContentException("NO_SUCH_STACKHOLDER");
+    }
 
     StackHolder2Dto exsistingUser = new StackHolder2Dto();
+    exsistingUser.setId(stackHolderDTO.getId());
     exsistingUser.setLastname(stackHolderDTO.getLastname());
     exsistingUser.setFirstname(stackHolderDTO.getFirstname());
     exsistingUser.setUsername(stackHolderDTO.getUsername());
     exsistingUser.setEmail(stackHolderDTO.getEmail());
     exsistingUser.setRole(stackHolderDTO.getRole());
     exsistingUser.setContact(stackHolderDTO.getContact());
-    return this.userRepo.save(this.StackDTOtoEntity(exsistingUser));
+    return userRepo.save(StackDTOtoEntity(exsistingUser));
 
   }
 

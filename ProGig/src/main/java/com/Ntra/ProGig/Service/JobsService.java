@@ -35,7 +35,7 @@ public class JobsService {
     {
         try {
             JobDto jobDto = this.JobToDto(jobs);
-            return this.DtoToJob(jobDto);
+            return this.jobRepo.save(DtoToJob(jobDto));
         } catch (Exception e) {
             throw new RuntimeException("Something Went Wrong!!");
         }
@@ -95,15 +95,22 @@ public class JobsService {
 
     }
 
-    public Jobs EditeJob(JobDto jobs){
+    public List<JobDto> searchJobs(String keyword) {
+        List<Jobs> jobs = jobRepo.search(keyword);
+        List<JobDto> jobDtos = jobs.stream().map(this::JobToDto).toList();
+        return jobDtos;
+    }
+
+    public Jobs EditeJob(JobDto jobs, int id) {
 
         Jobs exsistingJob = null;
         try {
-            exsistingJob = jobRepo.findById(jobs.getId());
+            exsistingJob = jobRepo.findById(id);
         } catch (NoContentException e) {
             throw new NoContentException("NO_SUCH_JOB");
         }
         JobDto jobDto = this.JobToDto(exsistingJob);
+        jobDto.setId(id);
         jobDto.setTitle(jobs.getTitle());
         jobDto.setAmount(jobs.getAmount());
         jobDto.setDescription(jobs.getDescription());
@@ -129,6 +136,5 @@ public class JobsService {
         jobs = new ModelMapper().map(jobDto, Jobs.class);
         return jobs;
     }
-
 
 }

@@ -9,9 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin("http://192.168.0.168:5173/**")
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path="/jobs",produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -31,15 +32,10 @@ public class JobController {
             return ResponseEntity.of(Optional.of(list));
         }
     }
-    @GetMapping("/job_id/{id}")
-    public ResponseEntity<JobDto> findbyJobId(@PathVariable int id) {
-      JobDto jobDto=jobsService.getJobBYID(id);
-        if(jobDto==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else {
-            return ResponseEntity.of(Optional.of(jobDto));
-        }
+    @GetMapping("/Jobs/search")
+    public ResponseEntity<List<JobDto>> searchJobs(@RequestParam String keyword) {
+        List<JobDto> jobs=jobsService.searchJobs(keyword);
+        return ResponseEntity.ok(jobs);
     }
     @GetMapping("/job/skill/{skill}")
     public ResponseEntity<List<JobDto>> findJobbySkills(@PathVariable String skill) {
@@ -67,10 +63,10 @@ public class JobController {
         return jobsService.jobCount();
     }
 
-    @PutMapping("/updateJob")
-    public ResponseEntity<Jobs> EditeJobs(@RequestBody JobDto job){
-        Jobs jobs = jobsService.EditeJob(job);
-        return ResponseEntity.of(Optional.of(jobs));
+    @PutMapping("/updateJob/{id}")
+    public ResponseEntity<Jobs> EditeJobs(@RequestBody JobDto job,@PathVariable int id){
+        Jobs jobs = jobsService.EditeJob(job,id);
+        return ResponseEntity.ok(jobs);
     }
     @DeleteMapping("/deleteJob/{id}")
     public ResponseEntity<Void> deleteJobs(@PathVariable int id){
