@@ -19,8 +19,8 @@ import java.util.Optional;
 public class JobController {
     private final JobsService jobsService;
     @PostMapping("/addjobs")
-    public Jobs addjobs(@RequestBody Jobs jobs){
-        return   jobsService.saveJobs(jobs);
+    public Jobs addjobs(@RequestBody JobDto jobs){
+        return   jobsService.saveJobWithProposals(jobs);
     }
     @GetMapping("/Jobs")
     public ResponseEntity<List<JobDto>> getAllJobs()

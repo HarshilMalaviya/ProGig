@@ -24,8 +24,6 @@ public class ProfileDto {
     private String Education;
     private String Articles;
     private String Certification;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id")
     private BankDerails bank;
     //    Aditional Section
 //    private List<Review> review;

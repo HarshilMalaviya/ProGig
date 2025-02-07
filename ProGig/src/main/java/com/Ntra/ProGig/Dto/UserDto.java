@@ -37,6 +37,6 @@ public class UserDto {
 
     private String whyRejected;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne
     private Profile profile;
 }

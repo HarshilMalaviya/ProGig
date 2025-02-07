@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/freelancer")
 
-public class FreelancerController {
+public class  FreelancerController {
 
     @Autowired
     private FreelancerService service;

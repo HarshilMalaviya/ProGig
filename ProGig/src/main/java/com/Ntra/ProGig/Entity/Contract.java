@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Contract")
-public class Contract {
+public class   Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
