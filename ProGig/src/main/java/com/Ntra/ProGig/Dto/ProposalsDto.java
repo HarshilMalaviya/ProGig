@@ -6,9 +6,6 @@ import java.util.Date;
 
 @Data
 public class ProposalsDto {
-    private Integer id;
-
-    private String jobTitle;
 
     private String freelancerName;
 

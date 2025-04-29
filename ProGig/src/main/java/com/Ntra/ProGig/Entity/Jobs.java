@@ -21,5 +21,9 @@ public class Jobs {
     private Pay0ut_Methods payout_methods;
     private String providers_name;
     private String providers_email;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_id",referencedColumnName = "id")
+    private List<Proposals> proposals;
+
 
 }

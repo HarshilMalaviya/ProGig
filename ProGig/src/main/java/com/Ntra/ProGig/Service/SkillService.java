@@ -31,7 +31,7 @@ public class SkillService {
 
     public Skills saveSkill(SkillsDto skillsDto){
 
-        return this.DtoToSkills(skillsDto);
+        return skillRepo.save(DtoToSkills(skillsDto));
     }
 
 

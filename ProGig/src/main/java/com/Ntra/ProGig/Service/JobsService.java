@@ -2,10 +2,12 @@ package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.JobDto;
 import com.Ntra.ProGig.Entity.Jobs;
+import com.Ntra.ProGig.Entity.Proposals;
 import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.JobRepo;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -13,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 
 public class JobsService {
 //    private final SkillRepo skillRepo;
@@ -31,15 +35,43 @@ public class JobsService {
     return (int) jobRepo.count();
 
     }
-    public Jobs saveJobs (Jobs jobs)
-    {
-        try {
-            JobDto jobDto = this.JobToDto(jobs);
-            return this.jobRepo.save(DtoToJob(jobDto));
-        } catch (Exception e) {
-            throw new RuntimeException("Something Went Wrong!!");
-        }
-    }
+//    public Jobs saveJobs (JobDto jobs)
+//    {
+////        try {
+//            return this.jobRepo.save(DtoToJob(jobs));
+////        } catch (Exception e) {
+////            throw new RuntimeException("Something Went Wrong!!");
+////        }
+//    }
+public Jobs saveJobWithProposals(JobDto jobDto) {
+    Jobs job = new Jobs();
+    job.setTitle(jobDto.getTitle());
+    job.setDescription(jobDto.getDescription());
+    job.setSkillsRequired(jobDto.getSkillsRequired());
+    job.setDuration(jobDto.getDuration());
+    job.setAmount(jobDto.getAmount());
+    job.setProviders_name(jobDto.getProviders_name());
+    job.setProviders_email(jobDto.getProviders_email());
+
+    // Convert payout_methods string to Enum
+    job.setPayout_methods(jobDto.getPayout_methods());
+
+    // Convert List<ProposalsDto> to List<Proposals>
+    List<Proposals> proposalsList = jobDto.getProposals().stream().map(dto -> {
+        Proposals proposal = new Proposals();
+        proposal.setFreelancerName(dto.getFreelancerName());
+        proposal.setFreelancerEmail(dto.getFreelancerEmail());
+        proposal.setBid(dto.getBid());
+        proposal.setFinishingTime(dto.getFinishingTime());
+        proposal.setReview(dto.getReview());
+        proposal.setId(null);  // Ensures Hibernate treats it as a new entity
+        return proposal;
+    }).collect(Collectors.toList());
+
+    job.setProposals(proposalsList);
+
+    return jobRepo.save(job); // Save job with associated proposals
+}
 
 
     public List<JobDto> getAllJobs (){

@@ -19,7 +19,7 @@ public class UserDto {
 
     private String lastName;
 
-    private Integer phone;
+    private Long phone;
 
     private String email;
 
@@ -37,6 +37,6 @@ public class UserDto {
 
     private String whyRejected;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne
     private Profile profile;
 }

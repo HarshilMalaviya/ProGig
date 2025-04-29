@@ -26,8 +26,7 @@ public class UserService {
     public List<UserDto> getAllUser(){
         try {
             List<User> users =this.repo.findAll();
-            List<UserDto> userDtos = users.stream().map(this::UserToDto).collect(Collectors.toList());
-            return userDtos;
+            return users.stream().map(this::UserToDto).collect(Collectors.toList());
         }catch (NoContentException e){
             throw new NoContentException("No_Content");
         }
@@ -93,13 +92,12 @@ public class UserService {
             return Collections.emptyList(); // Return an empty list if the keyword is null or empty
         }
         List<User> users = repo.search(keyword);
-        List<UserDto> userDtos = users.stream().map(this::UserToDto).toList();
-        return userDtos;
+        return users.stream().map(this::UserToDto).toList();
     }
 
     public User updateUser(UserDto user, int id) {
 
-        Optional<User> exsistingStackHolder = null;
+        Optional<User> exsistingStackHolder;
         try {
             exsistingStackHolder = repo.findById(id);
         } catch (NoContentException e) {
@@ -115,7 +113,9 @@ public class UserService {
         exsistingUser.setUsername(user.getUsername());
         exsistingUser.setSkills(user.getSkills());
         exsistingUser.setDescription(user.getDescription());
+        exsistingUser.setStatus(exsistingStackHolder.get().getStatus());
         exsistingUser.setRole(user.getRole());
+        exsistingUser.setProfile(user.getProfile());
         return repo.save(DtoToUser(exsistingUser));
 
     }
