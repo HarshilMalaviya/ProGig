@@ -16,10 +16,10 @@ public class ProposalController {
     @Autowired
     private ProposalService service;
 
-    @GetMapping("/{jobTitle}")
-    public ResponseEntity<ProposalsDto> getProposalByJobTitle(@PathVariable("jobTitle") String jobTitle){
-        return ResponseEntity.ok(this.service.findByJobTitle(jobTitle));
-    }
+//    @GetMapping("/{jobTitle}")
+//    public ResponseEntity<ProposalsDto> getProposalByJobTitle(@PathVariable("jobTitle") String jobTitle){
+//        return ResponseEntity.ok(this.service.findByJobTitle(jobTitle));
+//    }
 
     @PutMapping("/updateProposal")
     public ResponseEntity<Proposals> updateProposal(@RequestBody ProposalsDto proposalsDto){

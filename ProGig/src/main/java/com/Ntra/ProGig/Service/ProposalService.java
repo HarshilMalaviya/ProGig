@@ -21,14 +21,14 @@ public class ProposalService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ProposalsDto findByJobTitle(String jobTitle){
-        try {
-            Proposals proposals = this.repo.findByJobTitle(jobTitle);
-            return this.ProposalsToDto(proposals);
-        } catch (UserNotFoundException e) {
-            throw new UserNotFoundException("there is no proposal present");
-        }
-    }
+//    public ProposalsDto findByJobTitle(String jobTitle){
+//        try {
+//            Proposals proposals = this.repo.findByJobTitle(jobTitle);
+//            return this.ProposalsToDto(proposals);
+//        } catch (UserNotFoundException e) {
+//            throw new UserNotFoundException("there is no proposal present");
+//        }
+//    }
 
     public Proposals EditeProposal(ProposalsDto proposalsDto){
 

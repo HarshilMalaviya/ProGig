@@ -1,5 +1,6 @@
 package com.Ntra.ProGig.Entity;
 
+import com.Ntra.ProGig.Dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,10 +20,6 @@ public class Proposals {
     @Column(name = "ID")
     private Integer id;
 
-    private String clientName;
-
-    private String jobTitle;
-
     private String freelancerName;
 
     private String freelancerEmail;
@@ -31,7 +28,6 @@ public class Proposals {
 
     private Date finishingTime;
 
-    private Integer review;
 
 
 }
