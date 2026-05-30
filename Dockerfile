@@ -1,9 +1,12 @@
-FROM openjdk:21 as builder
+FROM maven:3.9-eclipse-temurin-17 AS builder
 WORKDIR /app
+COPY ProGig/pom.xml .
+RUN mvn dependency:go-offline -B
+COPY ProGig/src ./src
+RUN mvn clean package -DskipTests -q
 
-COPY target/ProGig-0.0.1-SNAPSHOT.jar /app/ProGig.jar
-
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=builder /app/target/ProGig-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-
-ENTRYPOINT ["java", "-jar", "ProGig.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

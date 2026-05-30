@@ -1,11 +1,14 @@
 package com.Ntra.ProGig.Service;
 
 import com.Ntra.ProGig.Dto.JobDto;
+import com.Ntra.ProGig.Entity.Count;
 import com.Ntra.ProGig.Entity.Jobs;
+import com.Ntra.ProGig.Entity.UserRole;
 import com.Ntra.ProGig.Exception.NoContentException;
 import com.Ntra.ProGig.Exception.UserNotFoundException;
 import com.Ntra.ProGig.Repository.JobRepo;
 
+import com.Ntra.ProGig.Repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -23,13 +26,17 @@ public class JobsService {
     @Autowired
     private final JobRepo jobRepo;
 
+    @Autowired
+    private UserRepo userRepo;
+
 
     @Autowired
     private ModelMapper modelMapper;
-    public int jobCount(){
-
-    return (int) jobRepo.count();
-
+    public Count jobCount(){
+        Count count = new Count();
+        count.setJob_count(String.valueOf(jobRepo.count()));
+        count.setFreelancer_count(String.valueOf(userRepo.findAllByRole(UserRole.FREELANCER).stream().count()));
+        return count;
     }
     public Jobs saveJobs (Jobs jobs)
     {

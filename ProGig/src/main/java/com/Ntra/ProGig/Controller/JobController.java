@@ -1,6 +1,7 @@
 package com.Ntra.ProGig.Controller;
 
 import com.Ntra.ProGig.Dto.JobDto;
+import com.Ntra.ProGig.Entity.Count;
 import com.Ntra.ProGig.Entity.Jobs;
 import com.Ntra.ProGig.Service.JobsService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path="/jobs",produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path="/jobs")
 public class JobController {
     private final JobsService jobsService;
     @PostMapping("/addjobs")
@@ -59,7 +60,7 @@ public class JobController {
     }
 
     @GetMapping("/Count")
-    public int Count(){
+    public Count Count(){
         return jobsService.jobCount();
     }
 
